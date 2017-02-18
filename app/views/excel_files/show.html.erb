@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @excel_file[:name] %>
+</p>
+
+<p>
+  <strong>Excel File:</strong>
+  <%= @excel_file.xl %>
+</p>
+
+<%= link_to 'Edit', edit_excel_file_path(@excel_file) %> |
+<%= link_to 'Back', excel_files_path %>
