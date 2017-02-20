@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+
+<% if user_signed_in? %>
 
 <h1>Listing Excel Files</h1>
 
@@ -27,3 +28,7 @@
 <br>
 
 <%= link_to 'New Excel file', new_excel_file_path %>
+
+<% else %>
+    <h3>You currently have no permissions for this page.</h3>
+<% end %>

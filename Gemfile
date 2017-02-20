@@ -33,10 +33,14 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 
 gem 'rspec-rails'
-gem 'devise'
 gem 'rmagick'
 gem 'carrierwave'
 gem 'devise'
+
+group :assets do
+  gem 'bootstrap-sass'
+  gem 'autoprefixer-rails'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
