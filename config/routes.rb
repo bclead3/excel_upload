@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :excel_files
   resources :galleries
   resources :paintings
