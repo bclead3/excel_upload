@@ -1,10 +1,19 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :excel_files
+
+  #get '/excel_files/process/:id' => 'excel_files#process'
+
+  resources :excel_files do
+    get 'process_file'
+  end
+
   resources :galleries
+
   resources :paintings
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+
+
 
   # You can have the root of your site routed with "root"
   root 'excel_files#index'

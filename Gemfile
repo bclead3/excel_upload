@@ -33,9 +33,10 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 
 gem 'rspec-rails'
-gem 'rmagick'
-gem 'carrierwave'
-gem 'devise'
+gem 'rmagick'     # Library for converting ImageMagick commands
+gem 'carrierwave' # Library for file uploads
+gem 'devise'      # Library for authentication
+gem 'roo'         # Library for Excel .xlsx reading
 
 group :assets do
   gem 'bootstrap-sass'

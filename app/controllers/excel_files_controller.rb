@@ -1,5 +1,5 @@
 class ExcelFilesController < ApplicationController
-  before_action :set_excel_file, only: [:show, :edit, :update, :destroy]
+  before_action :set_excel_file, only: [:show, :edit, :update, :destroy, :process_file]
 
   # GET /excel_files
   # GET /excel_files.json
@@ -64,14 +64,20 @@ class ExcelFilesController < ApplicationController
     end
   end
 
+  def process_file
+    loader = MMA::Excel::LoadExcel.new( @excel_file.xl.file.file )
+    MMA::Excel::ParseExcel.process_array( loader.row_arr )
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_excel_file
-      @excel_file = ExcelFile.find(params[:id])
+      file_id = params[:id] || params[:excel_file_id]
+      @excel_file = ExcelFile.find(file_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def excel_file_params
-      params.require(:excel_file).permit(:name, :xl)
+      params.require(:excel_file).permit(:xl, :description)
     end
 end

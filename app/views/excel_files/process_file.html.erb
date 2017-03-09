@@ -1,0 +1,40 @@
+<h3>This is the process view</h3>
+
+<table>
+  <thead>
+  <th>L Name</th>
+  <th>F Name</th>
+  <th>Loan #</th>
+  <th>L Program</th>
+  <th>Note Rate</th>
+  <th>Loan Amt</th>
+  <th>Investor #</th>
+  <th>Trade Buy</th>
+  <th>Trade Sell</th>
+  <th>$ Margin</th>
+  <th>House Margin</th>
+  </thead>
+  <tbody>
+  <% Loan.all.each do |loan| %>
+  <tr>
+    <td><%= loan.borrower_last_name %></td>
+    <td><%= loan.borrower_first_name %></td>
+    <td><%= loan.loan_num %></td>
+    <td><%= loan.loan_program %></td>
+    <td><%= loan.note_rate %></td>
+    <td><%= loan.loan_amt %></td>
+    <td><%= loan.investor %></td>
+    <td><%= loan.loan_trade_total_buy_price %></td>
+    <td><%= loan.loan_trade_total_sell_price %></td>
+    <td><%= loan.dollar_margin %></td>
+    <td><%= loan.expected_house_margin %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div>Total Pipeline:<%= Loan.sum('loan_amt').to_s %></div>
+<% ttl = 0; Loan.select{|x| ttl = ttl + x.dollar_margin} %>
+<div>Aggregate Dollar Margin:<%= ttl.round(2).to_s %></div>
+<% ttl2 = 0; Loan.select{|y| ttl2 = ttl2 + (y.expected_house_margin ? y.expected_house_margin : 0)} %>
+<div>Aggregate House Margin: <%= ttl2.round(3).to_s %></div>

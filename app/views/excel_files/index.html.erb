@@ -6,20 +6,21 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Description</th>
       <th>Path</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @excel_files.each do |excel_file| %>
       <tr>
-        <td><%= excel_file[:name] %></td>
+        <td><%= excel_file.description %></td>
         <td><%= excel_file.xl %></td>
         <td><%= link_to 'Show', excel_file %></td>
         <td><%= link_to 'Edit', edit_excel_file_path(excel_file) %></td>
         <td><%= link_to 'Destroy', excel_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Process', "excel_files/#{excel_file.id}/process_file" %> </td>
       </tr>
     <% end %>
   </tbody>

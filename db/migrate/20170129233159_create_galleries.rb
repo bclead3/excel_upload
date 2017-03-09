@@ -1,6 +1,6 @@
 class CreateGalleries < ActiveRecord::Migration
   def change
-    create_table :galleries do |t|
+    create_table :galleries, id: :uuid do |t|
       t.string :name
 
       t.timestamps null: false

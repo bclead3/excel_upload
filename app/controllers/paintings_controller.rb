@@ -1,6 +1,9 @@
 class PaintingsController < ApplicationController
-  before_action :set_painting, only: [:show, :edit, :update, :destroy]
+  before_action :set_painting, only: [:show, :edit, :update, :destroy, :process]
 
+  def process
+    @size = @painting.size
+  end
   # GET /paintings
   # GET /paintings.json
   def index
@@ -59,6 +62,10 @@ class PaintingsController < ApplicationController
       format.html { redirect_to paintings_url, notice: 'Painting was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def process
+    @size = @painting.size
   end
 
   private

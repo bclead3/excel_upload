@@ -11,35 +11,78 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220211334) do
+ActiveRecord::Schema.define(version: 20170225190337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "excel_files", force: :cascade do |t|
-    t.string   "name"
+  create_table "excel_files", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "description"
     t.string   "xl"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "galleries", force: :cascade do |t|
+  create_table "galleries", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "paintings", force: :cascade do |t|
+  create_table "loans", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "borrower_last_name"
+    t.string   "loan_num"
+    t.string   "loan_program"
+    t.decimal  "note_rate",                                   precision: 4,  scale: 3
+    t.decimal  "loan_amt",                                    precision: 10, scale: 2
+    t.string   "funding_source"
+    t.string   "investor_loan_num"
+    t.decimal  "loan_trade_total_buy_price",                  precision: 6,  scale: 3
+    t.decimal  "loan_trade_total_sell_price",                 precision: 6,  scale: 3
+    t.decimal  "ltv",                                         precision: 6,  scale: 3
+    t.string   "investor"
+    t.decimal  "bottom_ratio",                                precision: 9,  scale: 3
+    t.decimal  "combined_ltv",                                precision: 9,  scale: 3
+    t.integer  "fico"
+    t.string   "rate_lock_sell_investor_name"
+    t.string   "investor_status"
+    t.string   "lock_commitment"
+    t.string   "lock_status"
+    t.datetime "lock_request_time"
+    t.date     "lock_expiration_date"
+    t.date     "rate_lock_sell_side_lock_date"
+    t.date     "rate_lock_sell_side_lock_expires_date"
+    t.date     "closing_date"
+    t.decimal  "closing_disclosure_minus_closing_costs",      precision: 9,  scale: 2
+    t.date     "shipping_actual_shipping_date"
+    t.date     "est_closing_date"
+    t.date     "closing_disclosure_received_date"
+    t.string   "last_finished_milestone"
+    t.string   "borrower_first_name"
+    t.integer  "days_until_lock_expires"
+    t.decimal  "rate_lock_sell_side_gain_loss_percent",       precision: 5,  scale: 3
+    t.decimal  "rate_lock_sell_side_base_price_total_adjust", precision: 5,  scale: 3
+    t.string   "impounds_waived"
+    t.decimal  "rate_lock_sell_side_total_sell_price",        precision: 7,  scale: 3
+    t.decimal  "rate_lock_sell_side_srp_paid_out",            precision: 5,  scale: 3
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
+  end
+
+  add_index "loans", ["loan_num"], name: "index_loans_on_loan_num", unique: true, using: :btree
+
+  create_table "paintings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "gallery_id"
     t.string   "name"
     t.string   "image"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
     t.string   "remote_image_url"
     t.string   "xl"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
