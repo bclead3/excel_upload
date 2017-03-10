@@ -7,9 +7,6 @@ Rails.application.routes.draw do
     get 'process_file'
   end
 
-  resources :galleries
-
-  resources :paintings
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
