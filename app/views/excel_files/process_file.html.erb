@@ -33,8 +33,29 @@
   </tbody>
 </table>
 
-<div>Total Pipeline:<%= Loan.sum('loan_amt').to_s %></div>
 <% ttl = 0; Loan.select{|x| ttl = ttl + x.dollar_margin} %>
-<div>Aggregate Dollar Margin:<%= ttl.round(2).to_s %></div>
 <% ttl2 = ( ttl.to_f / Loan.sum('loan_amt').to_f ) * 100 %>
-<div>Avg House Margin: <%= ttl2.round(5).to_s %>%</div>
+<table>
+  <thead>
+  <tr>
+    <th>Value</th>
+    <th>Amount</th>
+  </tr>
+
+  </thead>
+  <tbody>
+  <tr>
+    <td>Total Pipleine</td>
+    <td><%= Loan.sum('loan_amt').to_s %></td>
+  </tr>
+  <tr>
+    <td>Aggregate Dollar Margin</td>
+    <td><%= ttl.round(2).to_s %></td>
+  </tr>
+  <tr>
+    <td>Avg House Margin</td>
+    <td><%= ttl2.round(5).to_s %>%</td>
+  </tr>
+
+  </tbody>
+</table>
