@@ -65,6 +65,7 @@ class ExcelFilesController < ApplicationController
   end
 
   def process_file
+    Loan.destroy_all
     loader = MMA::Excel::LoadExcel.new( @excel_file.xl.file.file )
     MMA::Excel::ParseExcel.process_array( loader.row_arr )
   end
