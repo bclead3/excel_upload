@@ -5,6 +5,7 @@ module MMA
 
 
       def self.process_array( arr )
+        Loan.destroy_all if arr && arr.count > 0
         arr.each do |sub_arr|
           loan_assign( sub_arr )
         end

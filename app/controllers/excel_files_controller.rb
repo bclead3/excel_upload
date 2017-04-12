@@ -65,9 +65,28 @@ class ExcelFilesController < ApplicationController
   end
 
   def process_file
-    Loan.destroy_all
-    loader = MMA::Excel::LoadExcel.new( @excel_file.xl.file.file )
-    MMA::Excel::ParseExcel.process_array( loader.row_arr )
+    if @excel_file &&
+        @excel_file.xl &&
+        @excel_file.xl.file &&
+        @excel_file.xl.file.file
+      begin
+      file = File.new( @excel_file.xl.file.file )
+      Rails.logger.info("Processing file:#{file.inspect}")
+      if file
+        loader = MMA::Excel::LoadExcel.new( @excel_file.xl.file.file )
+        row_arr = loader.row_arr
+      else
+        row_arr = []
+      end
+      rescue Exception => ex
+        Rails.logger.warn("Exception when trying to use file:#{ex.message}")
+        row_arr = []
+      end
+    else
+      Rails.logger.warn( 'no file found, will process with empty array')
+      row_arr = []
+    end
+    MMA::Excel::ParseExcel.process_array( row_arr )
   end
 
   private
