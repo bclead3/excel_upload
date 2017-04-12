@@ -1,5 +1,5 @@
 <style>
-  table tbody td:nth-child(2){
+  table.output tbody td:nth-child(2){
     text-align: right;
   }
 </style>
@@ -40,7 +40,7 @@
 
 <% ttl = 0; Loan.select{|x| ttl = ttl + x.dollar_margin} %>
 <% ttl2 = ( ttl.to_f / Loan.sum('loan_amt').to_f ) * 100 %>
-<table>
+<table class="output">
   <thead>
   <tr>
     <th>Name</th>
