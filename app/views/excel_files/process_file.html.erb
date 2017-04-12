@@ -1,4 +1,9 @@
-<h3>This is the process view</h3>
+<style>
+  table tbody td:nth-child(2){
+    text-align: right;
+  }
+</style>
+<h3>Total Pipeline</h3>
 
 <table>
   <thead>
@@ -38,15 +43,14 @@
 <table>
   <thead>
   <tr>
-    <th>Value</th>
+    <th>Name</th>
     <th>Amount</th>
   </tr>
-
   </thead>
   <tbody>
   <tr>
     <td>Total Pipleine</td>
-    <td><%= Loan.sum('loan_amt').to_s %></td>
+    <td><%= number_to_currency( Loan.sum('loan_amt').to_s ) %></td>
   </tr>
   <tr>
     <td>Aggregate Dollar Margin</td>
@@ -56,6 +60,5 @@
     <td>Avg House Margin</td>
     <td><%= ttl2.round(5).to_s %>%</td>
   </tr>
-
   </tbody>
 </table>
