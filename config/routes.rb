@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :excel_files do
     get 'process_file'
+    get 'total_pipeline'
+    get 'mortgage_type'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

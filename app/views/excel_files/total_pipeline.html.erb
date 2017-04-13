@@ -1,0 +1,64 @@
+<style>
+  table.output tbody td:nth-child(2){
+    text-align: right;
+  }
+</style>
+<h3>Total Pipeline</h3>
+
+<table>
+  <thead>
+  <th>L Name</th>
+  <th>F Name</th>
+  <th>Loan #</th>
+  <th>L Program</th>
+  <th>Note Rate</th>
+  <th>Loan Amt</th>
+  <th>Investor #</th>
+  <th>Trade Buy</th>
+  <th>Trade Sell</th>
+  <th>$ Margin</th>
+  <th>House Margin</th>
+  </thead>
+  <tbody>
+  <% Loan.all.each do |loan| %>
+      <tr>
+        <td><%= loan.borrower_last_name %></td>
+        <td><%= loan.borrower_first_name %></td>
+        <td><%= loan.loan_num %></td>
+        <td><%= loan.loan_program %></td>
+        <td><%= loan.note_rate %></td>
+        <td><%= loan.loan_amt %></td>
+        <td><%= loan.investor %></td>
+        <td><%= loan.loan_trade_total_buy_price %></td>
+        <td><%= loan.loan_trade_total_sell_price %></td>
+        <td><%= loan.dollar_margin %></td>
+        <td><%= loan.expected_house_margin %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<% ttl = 0; Loan.select{|x| ttl = ttl + x.dollar_margin} %>
+<% ttl2 = ( ttl.to_f / Loan.sum('loan_amt').to_f ) * 100 %>
+<table class="output">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Amount</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Total Pipleine</td>
+    <td><%= number_to_currency( Loan.sum('loan_amt').to_s ) %></td>
+  </tr>
+  <tr>
+    <td>Aggregate Dollar Margin</td>
+    <td><%= ttl.round(2).to_s %></td>
+  </tr>
+  <tr>
+    <td>Avg House Margin</td>
+    <td><%= ttl2.round(5).to_s %>%</td>
+  </tr>
+  </tbody>
+</table>
