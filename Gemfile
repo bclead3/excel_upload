@@ -38,10 +38,11 @@ gem 'carrierwave' # Library for file uploads
 gem 'devise'      # Library for authentication
 gem 'roo'         # Library for Excel .xlsx reading
 
-group :assets do
-  gem 'bootstrap-sass'
+#group :assets do
+  gem 'sprockets-rails'
+  gem 'bootstrap', '~> 4.0.0.alpha6'
   gem 'autoprefixer-rails'
-end
+#end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
