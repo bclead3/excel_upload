@@ -1,0 +1,59 @@
+<style>
+  table.output tbody td:nth-child(2){
+    text-align: right;
+  }
+</style>
+<h3>By Mortgage Type</h3>
+<table>
+  <thead>
+  <th>L Name</th>
+  <th>F Name</th>
+  <th>Loan #</th>
+  <th>L Program</th>
+  <th>Note Rate</th>
+  <th>Loan Amt</th>
+  <th>Investor #</th>
+  <th>Trade Buy</th>
+  <th>Trade Sell</th>
+  <th>$ Margin</th>
+  <th>House Margin</th>
+  </thead>
+  <tbody>
+  <tr>
+    <td colspan="11">5-15 Year</td>
+  </tr>
+  <% @fnma_15_ls.each do |loan| %>
+      <tr>
+        <td><%= loan.borrower_last_name %></td>
+        <td><%= loan.borrower_first_name %></td>
+        <td><%= loan.loan_num %></td>
+        <td><%= loan.loan_program %></td>
+        <td><%= loan.note_rate %></td>
+        <td><%= loan.loan_amt %></td>
+        <td><%= loan.investor %></td>
+        <td><%= loan.loan_trade_total_buy_price %></td>
+        <td><%= loan.loan_trade_total_sell_price %></td>
+        <td><%= loan.dollar_margin %></td>
+        <td><%= loan.expected_house_margin %></td>
+      </tr>
+  <% end %>
+  <tr>
+    <td colspan="11">20-30 Year</td>
+  </tr>
+  <% @fnma_loans.each do |loan| %>
+      <tr>
+        <td><%= loan.borrower_last_name %></td>
+        <td><%= loan.borrower_first_name %></td>
+        <td><%= loan.loan_num %></td>
+        <td><%= loan.loan_program %></td>
+        <td><%= loan.note_rate %></td>
+        <td><%= loan.loan_amt %></td>
+        <td><%= loan.investor %></td>
+        <td><%= loan.loan_trade_total_buy_price %></td>
+        <td><%= loan.loan_trade_total_sell_price %></td>
+        <td><%= loan.dollar_margin %></td>
+        <td><%= loan.expected_house_margin %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

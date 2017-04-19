@@ -89,6 +89,13 @@ class ExcelFilesController < ApplicationController
     MMA::Excel::ParseExcel.process_array( row_arr )
   end
 
+  def mortgage_type
+    if Loan.count > 0
+      @fnma_15_ls = Loan.where("loan_program IN ('10/1 Conventio', 'Conf Fixed 10', 'Conf Fixed 15', 'FNMA Fixed 10', 'FNMA Fixed 15')").order(:loan_program)
+      @fnma_loans = Loan.where("loan_program IN ('Conf Fixed 20', 'Conf Fixed 25', 'Conf Fixed 30', 'Conf FNMA Fixe', 'Conforming Fix', 'DU Refi Plus I', 'FHLMC Conf Fix', 'FNMA Fixed 20', 'FNMA Fixed 25', 'FNMA Fixed 30')").order(:loan_program)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_excel_file
