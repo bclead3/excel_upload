@@ -38,7 +38,12 @@
       </tr>
   <% end %>
   <tr>
-    <td colspan="11">20-30 Year</td>
+    <td colspan="5"></td>
+    <td><%= number_to_currency( @fnma_15_ls.sum('loan_amt').to_s )%></td>
+  </tr>
+  <tr>
+    <td colspan="5">20-30 Year</td>
+    <td></td>
   </tr>
   <% @fnma_loans.each do |loan| %>
       <tr>
@@ -47,7 +52,7 @@
         <td><%= loan.loan_num %></td>
         <td><%= loan.loan_program %></td>
         <td><%= loan.note_rate %></td>
-        <td><%= loan.loan_amt %></td>
+        <td><%= number_to_currency( loan.loan_amt ) %></td>
         <td><%= loan.investor %></td>
         <td><%= loan.loan_trade_total_buy_price %></td>
         <td><%= loan.loan_trade_total_sell_price %></td>
@@ -55,5 +60,12 @@
         <td><%= loan.expected_house_margin %></td>
       </tr>
   <% end %>
+  <tr>
+    <td colspan="5"></td>
+    <td><%= number_to_currency( @fnma_loans.sum('loan_amt').to_s )%></td>
+  </tr>
+  <tr>
+    <td colspan="5"></td>
+  </tr>
   </tbody>
 </table>
