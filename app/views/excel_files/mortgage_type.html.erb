@@ -29,7 +29,7 @@
         <td><%= loan.loan_num %></td>
         <td><%= loan.loan_program %></td>
         <td><%= loan.note_rate %></td>
-        <td><%= loan.loan_amt %></td>
+        <td><%= number_to_currency( loan.loan_amt ) %></td>
         <td><%= loan.investor %></td>
         <td><%= loan.loan_trade_total_buy_price %></td>
         <td><%= loan.loan_trade_total_sell_price %></td>
