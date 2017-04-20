@@ -1,6 +1,12 @@
 class ExcelFilesController < ApplicationController
   before_action :set_excel_file, only: [:show, :edit, :update, :destroy, :process_file]
 
+  FNMA_15_TYPE_ARRAY = ['10/1 Conventio', 'Conf Fixed 10', 'Conf Fixed 15', 'FNMA Fixed 10', 'FNMA Fixed 15']
+  FNMA_30_TYPE_ARRAY = ['Conf Fixed 20', 'Conf Fixed 25', 'Conf Fixed 30', 'Conf FNMA Fixe', 'Conforming Fix', 'DU Refi Plus I', 'FHLMC Conf Fix', 'FNMA Fixed 20', 'FNMA Fixed 25', 'FNMA Fixed 30']
+  GNMA_15_TYPE_ARRAY = ['FHA Fixed 15', 'FHA Fixed 15 G']
+  GNMA_30_TYPE_ARRAY = ['VA IRRRL Fixed', 'VA Fixed 30', 'FHA Fixed 20', 'FHA Fixed 25','FHA Fixed 30', 'FHA Fixed 30 G', 'VA Fixed 30 GN', 'FHA GNMA II Fi', 'FHA Streamline']
+  NON_CONFORMING_ARR = ['MHFA Conventio', 'GRH Fixed 30', 'Non-Agency Ful', 'MHFA 2nd - Mon', 'MHFA FHA Fixed']
+
   # GET /excel_files
   # GET /excel_files.json
   def index
@@ -89,10 +95,23 @@ class ExcelFilesController < ApplicationController
     MMA::Excel::ParseExcel.process_array( row_arr )
   end
 
-  def mortgage_type
+  def fnma_type
     if Loan.count > 0
-      @fnma_15_ls = Loan.where("loan_program IN ('10/1 Conventio', 'Conf Fixed 10', 'Conf Fixed 15', 'FNMA Fixed 10', 'FNMA Fixed 15')").order(:loan_program)
-      @fnma_loans = Loan.where("loan_program IN ('Conf Fixed 20', 'Conf Fixed 25', 'Conf Fixed 30', 'Conf FNMA Fixe', 'Conforming Fix', 'DU Refi Plus I', 'FHLMC Conf Fix', 'FNMA Fixed 20', 'FNMA Fixed 25', 'FNMA Fixed 30')").order(:loan_program)
+      @fnma_15_ls = Loan.where("loan_program IN ('#{FNMA_15_TYPE_ARRAY.join("','")}')").order(:loan_program)
+      @fnma_loans = Loan.where("loan_program IN ('#{FNMA_30_TYPE_ARRAY.join("','")}')").order(:loan_program)
+    end
+  end
+
+  def gnma_type
+    if Loan.count > 0
+      @gnma_15_ls = Loan.where("loan_program IN ('#{GNMA_15_TYPE_ARRAY.join("','")}')").order(:loan_program)
+      @gnma_loans = Loan.where("loan_program IN ('#{GNMA_30_TYPE_ARRAY.join("','")}')").order(:loan_program)
+    end
+  end
+
+  def non_conforming_type
+    if Loan.count > 0
+      @non_conforming_loans = Loan.where("loan_program IN ('#{NON_CONFORMING_ARR.join("','")}')").order(:loan_program)
     end
   end
 

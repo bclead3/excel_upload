@@ -1,4 +1,10 @@
 <style>
+  table.output tbody td:nth-child(3){
+    width: 110px;
+  }
+  table.output tbody td:nth-child(4){
+    width: 140px;
+  }
   table.output tbody td:nth-child(6){
     text-align: right;
   }
@@ -16,6 +22,9 @@
     width: 100px;
   }
   table.output tbody td:nth-child(11){
+    text-align: right;
+  }
+  table.output tbody td.to_right{
     text-align: right;
   }
 </style>
@@ -36,9 +45,11 @@
   </thead>
   <tbody>
   <tr>
-    <td colspan="11">FNMA 5-15 Year</td>
+    <td colspan="11">Non Conforming Loans</td>
   </tr>
-  <% @fnma_15_ls.each do |loan| %>
+  <% ttl = 0; @non_conforming_loans.select{|x| ttl = ttl + x.dollar_margin} %>
+  <% ttl2 = ( ttl.to_f / @non_conforming_loans.sum('loan_amt').to_f ) * 100 %>
+  <% @non_conforming_loans.each do |loan| %>
       <tr>
         <td><%= loan.borrower_last_name %></td>
         <td><%= loan.borrower_first_name %></td>
@@ -55,33 +66,9 @@
   <% end %>
   <tr>
     <td colspan="5"></td>
-    <td><%= number_to_currency( @fnma_15_ls.sum('loan_amt').to_s )%></td>
-  </tr>
-  <tr>
-    <td colspan="5">FNMA 20-30 Year</td>
-    <td></td>
-  </tr>
-  <% @fnma_loans.each do |loan| %>
-      <tr>
-        <td><%= loan.borrower_last_name %></td>
-        <td><%= loan.borrower_first_name %></td>
-        <td><%= loan.loan_num %></td>
-        <td><%= loan.loan_program %></td>
-        <td><%= loan.note_rate %></td>
-        <td><%= number_to_currency( loan.loan_amt ) %></td>
-        <td><%= loan.investor %></td>
-        <td><%= loan.loan_trade_total_buy_price %></td>
-        <td><%= loan.loan_trade_total_sell_price %></td>
-        <td><%= number_to_currency( loan.dollar_margin ) %></td>
-        <td><%= loan.expected_house_margin %></td>
-      </tr>
-  <% end %>
-  <tr>
-    <td colspan="5"></td>
-    <td><%= number_to_currency( @fnma_loans.sum('loan_amt').to_s )%></td>
-  </tr>
-  <tr>
-    <td colspan="5"></td>
+    <td colspan="4"><%= number_to_currency( @non_conforming_loans.sum('loan_amt').to_s )%></td>
+    <td class="to_right"><%= number_to_currency( ttl ) %></td>
+    <td class="to_right"><%= ttl2.round(5).to_s %></td>
   </tr>
   </tbody>
 </table>

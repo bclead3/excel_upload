@@ -1,4 +1,10 @@
 <style>
+  table.output tbody td:nth-child(3){
+    width: 110px;
+  }
+  table.output tbody td:nth-child(4){
+    width: 130px;
+  }
   table.output tbody td:nth-child(6){
     text-align: right;
   }
@@ -16,6 +22,9 @@
     width: 100px;
   }
   table.output tbody td:nth-child(11){
+    text-align: right;
+  }
+  table.output tbody td.to_right{
     text-align: right;
   }
 </style>
@@ -36,9 +45,11 @@
   </thead>
   <tbody>
   <tr>
-    <td colspan="11">FNMA 5-15 Year</td>
+    <td colspan="11">GNMA 5-15 Year</td>
   </tr>
-  <% @fnma_15_ls.each do |loan| %>
+  <% ttl = 0; @gnma_15_ls.select{|x| ttl = ttl + x.dollar_margin} %>
+  <% ttl2 = ( ttl.to_f / @gnma_15_ls.sum('loan_amt').to_f ) * 100 %>
+  <% @gnma_15_ls.each do |loan| %>
       <tr>
         <td><%= loan.borrower_last_name %></td>
         <td><%= loan.borrower_first_name %></td>
@@ -55,13 +66,17 @@
   <% end %>
   <tr>
     <td colspan="5"></td>
-    <td><%= number_to_currency( @fnma_15_ls.sum('loan_amt').to_s )%></td>
+    <td colspan="4"><%= number_to_currency( @gnma_15_ls.sum('loan_amt').to_s )%></td>
+    <td class="to_right"><%= number_to_currency( ttl ) %></td>
+    <td class="to_right"><%= ttl2.round(5).to_s %></td>
   </tr>
   <tr>
-    <td colspan="5">FNMA 20-30 Year</td>
+    <td colspan="5">GNMA 20-30 Year</td>
     <td></td>
   </tr>
-  <% @fnma_loans.each do |loan| %>
+  <% ttl30 = 0; @gnma_loans.select{|x| ttl30 = ttl30 + x.dollar_margin} %>
+  <% ttl30_2 = ( ttl30.to_f / @gnma_loans.sum('loan_amt').to_f ) * 100 %>
+  <% @gnma_loans.each do |loan| %>
       <tr>
         <td><%= loan.borrower_last_name %></td>
         <td><%= loan.borrower_first_name %></td>
@@ -78,7 +93,9 @@
   <% end %>
   <tr>
     <td colspan="5"></td>
-    <td><%= number_to_currency( @fnma_loans.sum('loan_amt').to_s )%></td>
+    <td colspan="4"><%= number_to_currency( @gnma_loans.sum('loan_amt').to_s )%></td>
+    <td class="to_right"><%= number_to_currency( ttl30 ) %></td>
+    <td class="to_right"><%= ttl30_2.round(5).to_s %></td>
   </tr>
   <tr>
     <td colspan="5"></td>
