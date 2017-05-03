@@ -97,8 +97,12 @@ class ExcelFilesController < ApplicationController
 
   def fnma_type
     if Loan.count > 0
-      @fnma_15_ls = Loan.where("loan_program IN ('#{FNMA_15_TYPE_ARRAY.join("','")}')").order(:loan_program)
-      @fnma_loans = Loan.where("loan_program IN ('#{FNMA_30_TYPE_ARRAY.join("','")}')").order(:loan_program)
+      @fnma_15_ls   = Loan.where("loan_program IN ('#{FNMA_15_TYPE_ARRAY.join("','")}')").order(:loan_program)
+      @fnma_15_opn  = @fnma_15_ls.select{|loan| ! loan.is_closed }
+      @fnma_15_clsd = @fnma_15_ls.select{|loan| loan.is_closed }
+      @fnma_loans   = Loan.where("loan_program IN ('#{FNMA_30_TYPE_ARRAY.join("','")}')").order(:loan_program)
+      @fnma_open    = @fnma_loans.select{|loan| ! loan.is_closed }
+      @fnma_closed  = @fnma_loans.select{|loan| loan.is_closed }
     end
   end
 

@@ -47,9 +47,10 @@
   <tr>
     <td colspan="11">FNMA 5-15 Year</td>
   </tr>
-  <% ttl = 0; @fnma_15_ls.select{|x| ttl = ttl + x.dollar_margin} %>
-  <% ttl2 = ( ttl.to_f / @fnma_15_ls.sum('loan_amt').to_f ) * 100 %>
-  <% @fnma_15_ls.each do |loan| %>
+  <% ttl = 0; @fnma_15_opn.select{|x| ttl = ttl + x.dollar_margin} %>
+  <% tt_s = 0.0; @fnma_15_opn.select{|x| tt_s = tt_s + x.loan_amt} %>
+  <% ttl2 = ( ttl.to_f / tt_s.to_f ) * 100 %>
+  <% @fnma_15_opn.each do |loan| %>
       <tr>
         <td><%= loan.borrower_last_name %></td>
         <td><%= loan.borrower_first_name %></td>
@@ -66,17 +67,45 @@
   <% end %>
   <tr>
     <td colspan="5"></td>
-    <td colspan="4"><%= number_to_currency( @fnma_15_ls.sum('loan_amt').to_s )%></td>
+    <td colspan="4"><%= number_to_currency( tt_s.to_s )%></td>
     <td class="to_right"><%= number_to_currency( ttl ) %></td>
+    <td class="to_right"><%= ttl2.round(5).to_s %></td>
+  </tr>
+  <tr>
+    <td colspan="11">FNMA CLOSED 5-15 Year</td>
+  </tr>
+  <% ttlc = 0; @fnma_15_clsd.select{|x| ttlc = ttlc + x.dollar_margin} %>
+  <% tt_cs= 0; @fnma_15_clsd.select{|x| tt_cs = tt_cs + x.loan_amt} %>
+  <% ttl2c = ( ttlc.to_f / tt_cs.to_f ) * 100 %>
+  <% @fnma_15_clsd.each do |loan| %>
+      <tr>
+        <td><%= loan.borrower_last_name %></td>
+        <td><%= loan.borrower_first_name %></td>
+        <td><%= loan.loan_num %></td>
+        <td><%= loan.loan_program %></td>
+        <td><%= loan.note_rate %></td>
+        <td><%= number_to_currency( loan.loan_amt ) %></td>
+        <td><%= loan.investor %></td>
+        <td><%= loan.loan_trade_total_buy_price %></td>
+        <td><%= loan.loan_trade_total_sell_price %></td>
+        <td><%= number_to_currency( loan.dollar_margin ) %></td>
+        <td><%= loan.expected_house_margin %></td>
+      </tr>
+  <% end %>
+  <tr>
+    <td colspan="5"></td>
+    <td colspan="4"><%= number_to_currency( tt_cs.to_s )%></td>
+    <td class="to_right"><%= number_to_currency( ttlc ) %></td>
     <td class="to_right"><%= ttl2.round(5).to_s %></td>
   </tr>
   <tr>
     <td colspan="5">FNMA 20-30 Year</td>
     <td></td>
   </tr>
-  <% ttl30 = 0; @fnma_loans.select{|x| ttl30 = ttl30 + x.dollar_margin} %>
-  <% ttl30_2 = ( ttl30.to_f / @fnma_loans.sum('loan_amt').to_f ) * 100 %>
-  <% @fnma_loans.each do |loan| %>
+  <% ttl30 = 0; @fnma_open.select{|x| ttl30 = ttl30 + x.dollar_margin} %>
+  <% ttl30s = 0; @fnma_open.select{|x| ttl30s = ttl30s + x.loan_amt} %>
+  <% ttl30_2 = ( ttl30.to_f / ttl30s.to_f ) * 100.0 %>
+  <% @fnma_open.each do |loan| %>
       <tr>
         <td><%= loan.borrower_last_name %></td>
         <td><%= loan.borrower_first_name %></td>
@@ -93,9 +122,40 @@
   <% end %>
   <tr>
     <td colspan="5"></td>
-    <td colspan="4"><%= number_to_currency( @fnma_loans.sum('loan_amt').to_s )%></td>
+    <td colspan="4"><%= number_to_currency( ttl30s.to_s )%></td>
     <td class="to_right"><%= number_to_currency( ttl30 ) %></td>
     <td class="to_right"><%= ttl30_2.round(5).to_s %></td>
+  </tr>
+  <tr>
+    <td colspan="5"></td>
+  </tr>
+  <tr>
+    <td colspan="5">FNMA CLOSED 20-30 Year</td>
+    <td></td>
+  </tr>
+  <% ttl30c = 0; @fnma_closed.select{|x| ttl30c = ttl30c + x.dollar_margin} %>
+  <% ttl30cs = 0; @fnma_closed.select{|x| ttl30cs = ttl30cs + x.loan_amt} %>
+  <% ttl30_2c = ( ttl30c.to_f / ttl30cs.to_f ) * 100 %>
+  <% @fnma_closed.each do |loan| %>
+      <tr>
+        <td><%= loan.borrower_last_name %></td>
+        <td><%= loan.borrower_first_name %></td>
+        <td><%= loan.loan_num %></td>
+        <td><%= loan.loan_program %></td>
+        <td><%= loan.note_rate %></td>
+        <td><%= number_to_currency( loan.loan_amt ) %></td>
+        <td><%= loan.investor %></td>
+        <td><%= loan.loan_trade_total_buy_price %></td>
+        <td><%= loan.loan_trade_total_sell_price %></td>
+        <td><%= number_to_currency( loan.dollar_margin ) %></td>
+        <td><%= loan.expected_house_margin %></td>
+      </tr>
+  <% end %>
+  <tr>
+    <td colspan="5"></td>
+    <td colspan="4"><%= number_to_currency( ttl30cs.to_s )%></td>
+    <td class="to_right"><%= number_to_currency( ttl30c ) %></td>
+    <td class="to_right"><%= ttl30_2c.round(5).to_s %></td>
   </tr>
   <tr>
     <td colspan="5"></td>
