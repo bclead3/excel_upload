@@ -1,20 +1,33 @@
 <style>
+  table.output tbody td:nth-child(1){
+    width: 110px;
+  }
+  table.output tbody td:nth-child(2){
+    width: 110px;
+  }
   table.output tbody td:nth-child(3){
     width: 110px;
   }
   table.output tbody td:nth-child(4){
-    width: 140px;
+    width: 130px;
+  }
+  table.output tbody td:nth-child(5){
+    width: 100px;
   }
   table.output tbody td:nth-child(6){
+    width: 130px;
     text-align: right;
   }
   table.output tbody td:nth-child(7){
+    width: 160px;
     text-align: right;
   }
   table.output tbody td:nth-child(8){
+    width: 100px;
     text-align: right;
   }
   table.output tbody td:nth-child(9){
+    width: 100px;
     text-align: right;
   }
   table.output tbody td:nth-child(10){
@@ -22,6 +35,7 @@
     width: 100px;
   }
   table.output tbody td:nth-child(11){
+    width: 100px;
     text-align: right;
   }
   table.output tbody td.to_right{
@@ -29,46 +43,12 @@
   }
 </style>
 <h3>By Mortgage Type</h3>
-<table class="output">
-  <thead>
-  <th>L Name</th>
-  <th>F Name</th>
-  <th>Loan #</th>
-  <th>L Program</th>
-  <th>Note Rate</th>
-  <th>Loan Amt</th>
-  <th>Investor #</th>
-  <th>Trade Buy</th>
-  <th>Trade Sell</th>
-  <th>$ Margin</th>
-  <th>House Margin</th>
-  </thead>
-  <tbody>
-  <tr>
-    <td colspan="11">Non Conforming Loans</td>
-  </tr>
-  <% ttl = 0; @non_conforming_loans.select{|x| ttl = ttl + x.dollar_margin} %>
-  <% ttl2 = ( ttl.to_f / @non_conforming_loans.sum('loan_amt').to_f ) * 100 %>
-  <% @non_conforming_loans.each do |loan| %>
-      <tr>
-        <td><%= loan.borrower_last_name %></td>
-        <td><%= loan.borrower_first_name %></td>
-        <td><%= loan.loan_num %></td>
-        <td><%= loan.loan_program %></td>
-        <td><%= loan.note_rate %></td>
-        <td><%= number_to_currency( loan.loan_amt ) %></td>
-        <td><%= loan.investor %></td>
-        <td><%= loan.loan_trade_total_buy_price %></td>
-        <td><%= loan.loan_trade_total_sell_price %></td>
-        <td><%= number_to_currency( loan.dollar_margin ) %></td>
-        <td><%= loan.expected_house_margin %></td>
-      </tr>
-  <% end %>
-  <tr>
-    <td colspan="5"></td>
-    <td colspan="4"><%= number_to_currency( @non_conforming_loans.sum('loan_amt').to_s )%></td>
-    <td class="to_right"><%= number_to_currency( ttl ) %></td>
-    <td class="to_right"><%= ttl2.round(5).to_s %></td>
-  </tr>
-  </tbody>
-</table>
+
+
+<%= render partial: 'excel_files/shared/sub_report', locals: {report_name:'Non Conforming Loans', loan_arr: @non_conf_open} %>
+
+<%= render partial: 'excel_files/shared/sub_report', locals: {report_name:'CLOSED Non Conforming Loans', loan_arr: @non_conf_closed} %>
+
+
+<%= render partial: 'excel_files/shared/sub_report_total', locals: {xnma_15_opn: [], xnma_15_clsd: [], xnma_open: @non_conf_open, xnma_closed: @non_conf_closed} %>
+

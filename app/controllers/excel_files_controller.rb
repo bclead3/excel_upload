@@ -109,13 +109,19 @@ class ExcelFilesController < ApplicationController
   def gnma_type
     if Loan.count > 0
       @gnma_15_ls = Loan.where("loan_program IN ('#{GNMA_15_TYPE_ARRAY.join("','")}')").order(:loan_program)
+      @gnma_15_opn  = @gnma_15_ls.select{|loan| ! loan.is_closed }
+      @gnma_15_clsd = @gnma_15_ls.select{|loan| loan.is_closed }
       @gnma_loans = Loan.where("loan_program IN ('#{GNMA_30_TYPE_ARRAY.join("','")}')").order(:loan_program)
+      @gnma_open    = @gnma_loans.select{|loan| ! loan.is_closed }
+      @gnma_closed  = @gnma_loans.select{|loan| loan.is_closed }
     end
   end
 
   def non_conforming_type
     if Loan.count > 0
       @non_conforming_loans = Loan.where("loan_program IN ('#{NON_CONFORMING_ARR.join("','")}')").order(:loan_program)
+      @non_conf_open    = @non_conforming_loans.select{|loan| ! loan.is_closed }
+      @non_conf_closed  = @non_conforming_loans.select{|loan| loan.is_closed }
     end
   end
 

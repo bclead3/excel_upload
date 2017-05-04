@@ -1,17 +1,17 @@
-<% f_15_dollar_total = 0; fnma_15_opn.select{|x| f_15_dollar_total = f_15_dollar_total + x.dollar_margin} %>
-<% f_15_sum_loan_amt = 0.0; fnma_15_opn.select{|x| f_15_sum_loan_amt = f_15_sum_loan_amt + x.loan_amt} %>
+<% x_15_dollar_total = 0; xnma_15_opn.select{|x| x_15_dollar_total = x_15_dollar_total + x.dollar_margin} %>
+<% x_15_sum_loan_amt = 0.0; xnma_15_opn.select{|x| x_15_sum_loan_amt = x_15_sum_loan_amt + x.loan_amt} %>
 
-<% f15c_dollar_total = 0; fnma_15_clsd.select{|x| f15c_dollar_total = f15c_dollar_total + x.dollar_margin} %>
-<% f15c_sum_loan_amt = 0.0; fnma_15_opn.select{|x| f15c_sum_loan_amt = f15c_sum_loan_amt + x.loan_amt} %>
+<% x15c_dollar_total = 0; xnma_15_clsd.select{|x| x15c_dollar_total = x15c_dollar_total + x.dollar_margin} %>
+<% x15c_sum_loan_amt = 0.0; xnma_15_opn.select{|x| x15c_sum_loan_amt = x15c_sum_loan_amt + x.loan_amt} %>
 
-<% f_o_dollar_total = 0; fnma_open.select{|x| f_o_dollar_total = f_o_dollar_total + x.dollar_margin} %>
-<% f_o_sum_loan_amt = 0.0; fnma_open.select{|x| f_o_sum_loan_amt = f_o_sum_loan_amt + x.loan_amt} %>
+<% x_o_dollar_total = 0; xnma_open.select{|x| x_o_dollar_total = x_o_dollar_total + x.dollar_margin} %>
+<% x_o_sum_loan_amt = 0.0; xnma_open.select{|x| x_o_sum_loan_amt = x_o_sum_loan_amt + x.loan_amt} %>
 
-<% f_c_dollar_total = 0; fnma_closed.select{|x| f_c_dollar_total = f_c_dollar_total + x.dollar_margin} %>
-<% f_c_sum_loan_amt = 0.0; fnma_closed.select{|x| f_c_sum_loan_amt = f_c_sum_loan_amt + x.loan_amt} %>
+<% x_c_dollar_total = 0; xnma_closed.select{|x| x_c_dollar_total = x_c_dollar_total + x.dollar_margin} %>
+<% x_c_sum_loan_amt = 0.0; xnma_closed.select{|x| x_c_sum_loan_amt = x_c_sum_loan_amt + x.loan_amt} %>
 
-<% f_dollar_total = f_15_dollar_total + f15c_dollar_total + f_o_dollar_total + f_c_dollar_total %>
-<% f_sum_loan_amt = f_15_sum_loan_amt + f15c_sum_loan_amt + f_o_sum_loan_amt + f_c_sum_loan_amt %>
+<% x_dollar_total = x_15_dollar_total + x15c_dollar_total + x_o_dollar_total + x_c_dollar_total %>
+<% x_sum_loan_amt = x_15_sum_loan_amt + x15c_sum_loan_amt + x_o_sum_loan_amt + x_c_sum_loan_amt %>
 
 <table class="output">
   <%- render partial: 'excel_files/shared/sub_report_head' %>
@@ -22,11 +22,11 @@
     <td />
     <td />
     <td />
-    <td><%= number_to_currency(f_sum_loan_amt.to_s )%></td>
+    <td><%= number_to_currency(x_sum_loan_amt.to_s )%></td>
     <td />
     <td />
     <td />
-    <td class="to_right"><%= number_to_currency(f_dollar_total ) %></td>
+    <td class="to_right"><%= number_to_currency(x_dollar_total ) %></td>
     <!--<td class="to_right">#######</td>-->
   </tr>
   </tbody>
