@@ -32,11 +32,12 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'rspec-rails'
+
 gem 'rmagick'     # Library for converting ImageMagick commands
 gem 'carrierwave' # Library for file uploads
 gem 'devise'      # Library for authentication
 gem 'roo'         # Library for Excel .xlsx reading
+gem 'roo-xls'     # Library for Excel .xls  reading
 
 #group :assets do
   gem 'sprockets-rails'
@@ -47,6 +48,8 @@ gem 'roo'         # Library for Excel .xlsx reading
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do

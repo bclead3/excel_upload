@@ -36,6 +36,16 @@ module Schock
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
+
+      g.test_framework :rspec,
+                       fixtures: true,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       controller_specs: true,
+                       request_specs: false
+      g.fixture_placement :factory_girl, dir: 'spec/factories'
+
     end
   end
 end

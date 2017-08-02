@@ -19,8 +19,13 @@ module MMA
             @wb = Roo::Spreadsheet.open( f )
           elsif obj.is_a?(File)
             Rails.logger.info "obj is a file #{obj}"
-            @wb = Roo::Spreadsheet.open( obj )
-            Rails.logger.info 'succeffully opened workbook'
+            if obj.path.split('.')[-1].downcase == 'xlsx'
+              @wb = Roo::Spreadsheet.open( obj )
+              Rails.logger.info 'succeffully opened workbook'
+            elsif obj.path.split('.')[-1].downcase == 'xls'
+              @wb = Spreadsheet.open( obj )
+              Rails.logger.info 'succeffully opened workbook'
+            end
           end
         rescue Exception=>ex
           Rails.logger.error( "Couldn't load workbook from #{obj}" )
@@ -28,15 +33,21 @@ module MMA
       end
 
       def data_sheet( wb_obj )
-        sheet_name = wb_obj.sheets.select{|x| /Data/.match( x )}.first
-        wb_obj.sheet( sheet_name )
+        begin
+          sheet_name = wb_obj.sheets.select{|x| /Data/.match( x )}.first
+          wb_obj.sheet( sheet_name )
+        rescue
+
+        end
       end
 
       def row_array( sheet )
         out_arr = []
-        (sheet.first_row..sheet.last_row).each do |row_num|
-          arr = sheet.row( row_num )
-          out_arr << arr
+        if sheet
+          (sheet.first_row..sheet.last_row).each do |row_num|
+            arr = sheet.row( row_num )
+            out_arr << arr
+          end
         end
         out_arr
       end
