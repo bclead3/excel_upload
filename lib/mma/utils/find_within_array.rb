@@ -9,9 +9,31 @@ module MMA
         return_index = nil
         if arr.is_a?(Array)
           if arr.count > 0 && arr[0].is_a?(String) && val.is_a?(Numeric)
-            arr.each_with_index do |element|
+            arr.each_with_index do |element, array_index|
               element_sub_arr = convert_string_to_array( element )
               begin_end_arr   = numeric_ends( element_sub_arr )
+              begin
+                if begin_end_arr.is_a?(Array) && ( begin_end_arr[0].index('>') || begin_end_arr[0].index('<') )
+                  if begin_end_arr[0].index('>')
+                    #puts "about to eval(#{val} #{begin_end_arr[0]} #{begin_end_arr[1]})"
+                    if eval("#{val} #{begin_end_arr[0]} #{begin_end_arr[1]}")
+                      return_index = array_index
+                    end
+                  elsif begin_end_arr[0].index('<')
+                    #puts "about to eval(#{val} #{begin_end_arr[0]} #{begin_end_arr[1]})"
+                    if eval("#{val} #{begin_end_arr[0]} #{begin_end_arr[1]}")
+                      return_index = array_index
+                    end
+                  end
+                else
+                  #puts "about to eval(#{begin_end_arr[0]} <= #{val}) AND eval(#{val} <= #{begin_end_arr[1]})"
+                  if eval("#{begin_end_arr[0]} <= #{val}") && eval("#{val} <= #{begin_end_arr[1]}")
+                    return_index = array_index
+                  end
+                end
+              rescue
+
+              end
             end
           elsif arr.count > 0 && arr[0].is_a?(Fixnum) && val.is_a?(Fixnum)
             arr.index(val)
@@ -34,7 +56,7 @@ module MMA
                            .gsub('gt','>')
                            .gsub('_01','.01')
                            .gsub('_',' ')
-          puts "new_string:#{new_string}"
+          #puts "new_string:#{new_string}"
           new_arr = new_string.split(' ')
         end
       end
@@ -56,6 +78,7 @@ module MMA
             end
           end
         end
+        #puts "about to put out_arr:#{out_arr.inspect}"
         out_arr
       end
     end

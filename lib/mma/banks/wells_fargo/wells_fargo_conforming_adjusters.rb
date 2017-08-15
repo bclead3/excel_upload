@@ -7,16 +7,17 @@ module MMA   #MMA::Banks::WellsFargo::WellsFargoConformingAdjusters
       LTV_Range_2_Arr = %w[ltv_lte_60 ltv_60_01_to_70 ltv_70_01_to_75 ltv_75_01_to_80 ltv_80_01_to_85 ltv_85_01_to_90 ltv_90_01_to_95 ltv_asterisk_95_01_to_97 ltv_hash_95_01_to_97]
 
       FICO_Arr        = %w[gte_740 720_to_739 700_to_719 680_to_699 660_to_679 640_to_659 620_to_639 lt_620]
+
       class WellsFargoConformingAdjusters < WellsFargoLogic
 
-        attr_accessor :conf_adjusting_rows
+        attr_accessor :conf_adjusting_rows, :worksheet_rows
 
-        def initialize( obj )
-          super( obj )
+        def initialize( obj, sheet_number = 1 )
+          super( obj, sheet_number )
         end
 
         def wf_conforming_adjuster_array
-          @conf_adjusting_rows ||= @rows ||= sheet_array( 1 )
+          @conf_adjusting_rows ||= @worksheet_rows
         end
 
         def wf_conf_adj_fixed_investor_index
@@ -117,6 +118,26 @@ module MMA   #MMA::Banks::WellsFargo::WellsFargoConformingAdjusters
             end
           end
           return_hash
+        end
+
+        def hashup
+          ret_h = {}
+
+          ret_h['fixed_investor'] = wf_conf_adj_fixed_investor_hash
+          ret_h['attached_condo'] = wf_conf_adj_fixed_attached_condo_hash
+          ret_h['fixed_high_ltv'] = wf_conf_adj_fixed_high_ltv_hash
+          ret_h['fixed_n_arm_2_unit']   = wf_conf_adj_fixed_and_arm_2_unit_property_hash
+          ret_h['fixed_n_arm_3_4_unit'] = wf_conf_adj_fixed_and_arm_3_4_unit_property_hash
+          ret_h['fixed_n_arm_coop']     = wf_conf_adj_fixed_and_arm_coop_hash
+          ret_h['arm_investor']         = wf_conf_adj_arm_investor_hash
+          ret_h['arm_attached_condos']  = wf_conf_adj_arm_attached_condos_hash
+          ret_h['arm_ltv_gt_90_lt_95_w_lp'] = wf_conf_adj_arm_ltv_gt_90_lt_95_w_lp_hash
+          ret_h['fixed_n_arm_ltv_gt_90']    = wf_conf_adj_fixed_and_arm_ltv_gt_90_hash
+          ret_h['arm_interest_only']        = wf_conf_adj_interest_only_hash
+          ret_h['secondary_financing']      = wf_conf_adj_secondary_financing_hash
+          ret_h['arm_ltv_fico_all_products']= wf_conf_adj_ltv_fico_all_products_hash
+          ret_h['arm_ltv_fico_cash_out']    = wf_conf_adj_ltv_fico_cash_out_hash
+          ret_h
         end
 
         private

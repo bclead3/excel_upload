@@ -20,7 +20,7 @@
   <th>House Margin</th>
   </thead>
   <tbody>
-  <% Loan.all.each do |loan| %>
+  <% MMA::Loan.all.each do |loan| %>
       <tr>
         <td><%= loan.borrower_last_name %></td>
         <td><%= loan.borrower_first_name %></td>
@@ -38,8 +38,8 @@
   </tbody>
 </table>
 
-<% ttl = 0; Loan.select{|x| ttl = ttl + x.dollar_margin} %>
-<% ttl2 = ( ttl.to_f / Loan.sum('loan_amt').to_f ) * 100 %>
+<% ttl = 0; MMA::Loan.select{|x| ttl = ttl + x.dollar_margin} %>
+<% ttl2 = ( ttl.to_f / MMA::Loan.sum('loan_amt').to_f ) * 100 %>
 <table class="output">
   <thead>
   <tr>
@@ -50,7 +50,7 @@
   <tbody>
   <tr>
     <td>Total Pipleine</td>
-    <td><%= number_to_currency( Loan.sum('loan_amt').to_s ) %></td>
+    <td><%= number_to_currency( MMA::Loan.sum('loan_amt').to_s ) %></td>
   </tr>
   <tr>
     <td>Aggregate Dollar Margin</td>

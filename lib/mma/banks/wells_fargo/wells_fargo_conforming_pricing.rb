@@ -1,17 +1,17 @@
-module MMA   #MMA::Banks::WellsFargo::WellsFargoConformingPricing
+module MMA   # MMA::Banks::WellsFargo::WellsFargoConformingPricing
   module Banks
     module WellsFargo
 
       class WellsFargoConformingPricing < WellsFargoLogic
 
-        attr_accessor :conf_pricing_rows, :conf_adjuster_rows, :non_conf_pricing_rows, :non_conf_adjuster_rows
+        attr_accessor :conf_pricing_rows, :worksheet_rows
 
-        def initialize( obj )
-          super( obj )
+        def initialize( obj, sheet_number = 0 )
+          super( obj, sheet_number )
         end
 
         def wf_conforming_pricing_array
-          @conf_pricing_rows ||= @rows ||= sheet_array( 0 )
+          @conf_pricing_rows ||= @worksheet_rows ||= sheet_array( 0 )
         end
 
         def wf_conforming_date

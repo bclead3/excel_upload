@@ -5,13 +5,6 @@ require_relative 'wells_fargo_spec_helpers'
 module MMA
   module Banks
     module WellsFargo
-      # class Wrapper
-      #   include WellsFargoLogic
-      #
-      #   def model
-      #     ::MMA::Banks::WellsFargo
-      #   end
-      # end
 
       describe WellsFargoLogic, '#conforming_pricing_array' do
         include RSpec::WellsFargoSpecHelpers
