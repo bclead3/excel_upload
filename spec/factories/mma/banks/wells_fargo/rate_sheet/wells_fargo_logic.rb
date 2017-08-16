@@ -226,9 +226,9 @@ FactoryGirl.define do
 [nil, "For use by mortgage professionals only and should not be distributed to borrowers", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
      ]
 
-  factory :wells_fargo_logic_factory, :class => MMA::Banks::WellsFargo::WellsFargoLogic do |factory|
+  factory :wells_fargo_logic_factory, :class => MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic do |factory|
 
-    initialize_with{ MMA::Banks::WellsFargo::WellsFargoLogic.new( nil ) }
+    initialize_with{ MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic.new( nil ) }
 
     @rows = arr
   end

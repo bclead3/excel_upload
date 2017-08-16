@@ -2,7 +2,7 @@
 module RSpec
   module WellsFargoSpecHelpers
     def model
-      ::MMA::Banks::WellsFargo
+      ::MMA::Banks::WellsFargo::RateSheet
     end
 
     def arr

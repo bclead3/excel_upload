@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../wells_fargo/wells_fargo_spec_helpers'
+require_relative '../wells_fargo/rate_sheet/wells_fargo_spec_helpers'
 
 
 module MMA

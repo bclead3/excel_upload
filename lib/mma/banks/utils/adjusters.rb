@@ -75,12 +75,16 @@ module MMA    # MMA::Banks::Utils::Adjusters.calculate_adjusters( )
             hash[:duration] = LONG_DURATION_WORDING
             if /\d+/.match(loan_program_string)
               hash[:years] = /\d+/.match(loan_program_string).to_s.to_i
+            else
+              hash[:years] = DEFAULT_LONG_YEARS
             end
           elsif MMA::GNMA_15_TYPE_ARRAY.index( loan_program_string )
             hash[:type] = GINNIE_MAY
             hash[:duration] = SHORT_DURATION_WORDING
             if /\d+/.match(loan_program_string)
               hash[:years] = /\d+/.match(loan_program_string).to_s.to_i
+            else
+              hash[:years] = DEFAULT_SHORT_YEARS
             end
           elsif MMA::GNMA_30_TYPE_ARRAY.index( loan_program_string )
             hash[:type] = GINNIE_MAY

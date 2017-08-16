@@ -2,20 +2,16 @@ require 'rails_helper'
 require_relative 'wells_fargo_spec_helpers'
 
 
-module MMA
-  module Banks
-    module WellsFargo
+module MMA::Banks::WellsFargo::RateSheet
 
       describe WellsFargoLogic, '#conforming_pricing_array' do
         include RSpec::WellsFargoSpecHelpers
         let(:rows) { arr }
         before(:each) do
-          @mma_wf = MMA::Banks::WellsFargo::WellsFargoLogic.new( arr )
+          @mma_wf = MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic.new( arr )
         end
 
       end
-    end
-  end
 end
 
 

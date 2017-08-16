@@ -2,9 +2,7 @@ require 'rails_helper'
 require_relative 'wells_fargo_spec_helpers'
 
 
-module MMA
-  module Banks
-    module WellsFargo
+module MMA::Banks::WellsFargo::RateSheet
       # class Wrapper
       #   include WellsFargoLogic
       #
@@ -17,7 +15,7 @@ module MMA
         include RSpec::WellsFargoSpecHelpers
         let(:rows) { arr }
         before(:each) do
-          @mma_wf = MMA::Banks::WellsFargo::WellsFargoConformingPricing.new( arr )
+          @mma_wf = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing.new( arr )
         end
 
         it '#conforming_pricing_array should spit out an array of 113 elements' do
@@ -55,8 +53,6 @@ module MMA
           expect(@mma_wf.wf_conforming_conf_title_index).to eq(20)
         end
       end
-    end
-  end
 end
 
 

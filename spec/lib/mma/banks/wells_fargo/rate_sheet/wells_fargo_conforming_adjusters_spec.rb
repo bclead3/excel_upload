@@ -2,22 +2,13 @@ require 'rails_helper'
 require_relative 'wells_fargo_spec_helpers'
 
 
-module MMA
-  module Banks
-    module WellsFargo
-      # class Wrapper
-      #   include WellsFargoLogic
-      #
-      #   def model
-      #     ::MMA::Banks::WellsFargo
-      #   end
-      # end
+module MMA::Banks::WellsFargo::RateSheet
 
       describe WellsFargoConformingAdjusters, '#conforming_pricing_array' do
         require 'pp'
         include RSpec::WellsFargoSpecHelpers
         before(:each) do
-          @mma_wf_adj = MMA::Banks::WellsFargo::WellsFargoConformingAdjusters.new( RSpec::WellsFargoSpecHelpers.conf_adjuster_arr )
+          @mma_wf_adj = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingAdjusters.new( RSpec::WellsFargoSpecHelpers.conf_adjuster_arr )
         end
 
         it '#wf_conforming_adjuster_array should spit out an array of 107 elements' do
@@ -187,9 +178,8 @@ pp @mma_wf_adj.wf_conf_adj_ltv_fico_all_products_hash
         it '#wf_conf_adj_ltv_fico_cash_out_hash' do
           pp @mma_wf_adj.wf_conf_adj_ltv_fico_cash_out_hash
         end
+
       end
-    end
-  end
 end
 
 
