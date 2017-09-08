@@ -28,7 +28,7 @@ module MMA   # MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic
               sheet.each{ |row| out << eval( row.to_s ) }
               out
             rescue Exception=>e
-              puts "Exception while serializing sheet rows:#{e.message}"
+              puts "Exception while serializing sheet rows:#{e.message} in MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic"
             end
           end
         end

@@ -30,19 +30,19 @@ module MMA    # MMA::Banks::Utils::RateMatcher.new( p_hash, a_hash ).find_rate_p
                 puts "no 30yr price info for #{loan_hash}"
               end
             elsif loan_years == 20 || loan_years == 25
-              if price_hash = @price_hash[:conventional_fixed_rates]["20yr"][loan_rate]
+              if price_hash = @price_hash[:conventional_fixed_rates]['20yr'][loan_rate]
                 puts price_hash
               else
                 puts "no 20yr price info for #{loan_hash}"
               end
             elsif loan_years == 15
-              if price_hash = @price_hash[:conventional_fixed_rates]["15yr"][loan_rate]
+              if price_hash = @price_hash[:conventional_fixed_rates]['15yr'][loan_rate]
                 puts price_hash
               else
                 puts "no 15yr price info for #{loan_hash}"
               end
             elsif loan_years == 10
-              if price_hash = @price_hash[:conventional_fixed_rates]["10yr"][loan_rate]
+              if price_hash = @price_hash[:conventional_fixed_rates]['10yr'][loan_rate]
                 puts price_hash
               else
                 puts "no 10yr price info for #{loan_hash}"

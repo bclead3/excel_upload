@@ -68,5 +68,24 @@ module MMA
       end
       return_arr
     end
+
+    def scramble(str)
+      s = str.split(//).sort_by { rand }.join('')
+      s =~ /[A-Z]/ && s =~ /[a-z]/ ? s.capitalize : s
+    end
+
+    def scramble_field( field_name )
+      val = self.send( field_name.to_sym )
+      scramble( val )
+    end
+
+    def scramble_last
+      scramble_field( :borrower_last_name )
+    end
+
+    def scramble_first
+      scramble_field( :borrower_first_name )
+    end
+
   end
 end

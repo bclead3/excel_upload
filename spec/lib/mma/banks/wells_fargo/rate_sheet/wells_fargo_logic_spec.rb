@@ -8,7 +8,7 @@ module MMA::Banks::WellsFargo::RateSheet
         include RSpec::WellsFargoSpecHelpers
         let(:rows) { arr }
         before(:each) do
-          @mma_wf = MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic.new( arr )
+          subject = MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic.new(arr )
         end
 
       end

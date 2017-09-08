@@ -4,8 +4,8 @@
 <% dlr_pctg = ( dollar_total.to_f / sum_loan_amt.to_f ) * 100 %>
 <% loan_arr.each do |loan| %>
     <tr>
-      <td><%= loan.borrower_last_name %></td>
-      <td><%= loan.borrower_first_name %></td>
+      <!--<td><%# loan.borrower_last_name %></td>-->
+      <!--<td><%# loan.borrower_first_name %></td>-->
       <td><%= loan.loan_num %></td>
       <td><%= loan.loan_program %></td>
       <td><%= loan.note_rate %></td>
@@ -18,7 +18,7 @@
     </tr>
 <% end %>
 <tr>
-  <td colspan="5"></td>
+  <td colspan="3"></td>
   <td colspan="4"><%= number_to_currency(sum_loan_amt.to_s )%></td>
   <td class="to_right"><%= number_to_currency(dollar_total ) %></td>
   <td class="to_right"><%= dlr_pctg.round(5).to_s %></td>

@@ -13,7 +13,7 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpLogic
 
           def initialize( object, sheet_number = 0 )
             @wf_xl  = MMA::Excel::LoadExcel.new( object ).wb if object.is_a?(File)
-            puts "successfully opened @wf_xl:#{@wf_xl}"
+            puts "successfully opened @wf_xl:#{@wf_xl}"        if object.is_a?(File)
             if object && object.is_a?(Array)
               @worksheet_rows   = object
             else

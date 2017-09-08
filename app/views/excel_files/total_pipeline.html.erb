@@ -7,8 +7,8 @@
 
 <table>
   <thead>
-  <th>L Name</th>
-  <th>F Name</th>
+  <!--<th>L Name</th>-->
+  <!--<th>F Name</th>-->
   <th>Loan #</th>
   <th>L Program</th>
   <th>Note Rate</th>
@@ -22,8 +22,8 @@
   <tbody>
   <% MMA::Loan.all.each do |loan| %>
       <tr>
-        <td><%= loan.borrower_last_name %></td>
-        <td><%= loan.borrower_first_name %></td>
+        <!--<td><%# loan.borrower_last_name %></td>-->
+        <!--<td><%# loan.borrower_first_name %></td>-->
         <td><%= loan.loan_num %></td>
         <td><%= loan.loan_program %></td>
         <td><%= loan.note_rate %></td>

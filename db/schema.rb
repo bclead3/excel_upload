@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225190337) do
+ActiveRecord::Schema.define(version: 20170821105919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,8 +66,10 @@ ActiveRecord::Schema.define(version: 20170225190337) do
     t.string   "impounds_waived"
     t.decimal  "rate_lock_sell_side_total_sell_price",        precision: 7,  scale: 3
     t.decimal  "rate_lock_sell_side_srp_paid_out",            precision: 5,  scale: 3
-    t.datetime "created_at",                                                           null: false
-    t.datetime "updated_at",                                                           null: false
+    t.datetime "created_at",                                                                                     null: false
+    t.datetime "updated_at",                                                                                     null: false
+    t.string   "us_state",                                                             default: "MN"
+    t.string   "property_type",                                                        default: "single-family"
   end
 
   add_index "loans", ["loan_num"], name: "index_loans_on_loan_num", unique: true, using: :btree

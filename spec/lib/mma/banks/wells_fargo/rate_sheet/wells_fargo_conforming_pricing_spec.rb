@@ -14,43 +14,39 @@ module MMA::Banks::WellsFargo::RateSheet
       describe WellsFargoConformingPricing, '#conforming_pricing_array' do
         include RSpec::WellsFargoSpecHelpers
         let(:rows) { arr }
-        before(:each) do
-          @mma_wf = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing.new( arr )
-        end
+        subject{ described_class.new( arr ) }
 
         it '#conforming_pricing_array should spit out an array of 113 elements' do
-          puts "mma_wf:#{@mma_wf.inspect}"
-          expect(@mma_wf.wf_conforming_pricing_array).to be_a(Array)
-          expect(@mma_wf.wf_conforming_pricing_array.count).to eq(113)
+          expect(subject.wf_conforming_pricing_array).to be_a(Array)
+          expect(subject.wf_conforming_pricing_array.count).to eq(113)
         end
 
         it '#conforming_pricing_array should show its first sub component is an array' do
-          #@mma_wf = setup_parse_logic
-          expect(@mma_wf.wf_conforming_pricing_array.first).to be_a(Array)
-          expect(@mma_wf.wf_conforming_pricing_array.first).to eq([nil, 'CORRESPONDENT BEST EFFORT CONFORMING PRICING', nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+          expect(subject.wf_conforming_pricing_array.first).to be_a(Array)
+          expect(subject.wf_conforming_pricing_array.first).to eq([nil, 'CORRESPONDENT BEST EFFORT CONFORMING PRICING', nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
         end
 
         it '#wf_conforming_date' do
-          expect(@mma_wf.wf_conforming_date).to be_a(String)
-          expect(@mma_wf.wf_conforming_date).to eq('2017-05-11')
+          expect(subject.wf_conforming_date).to be_a(String)
+          expect(subject.wf_conforming_date).to eq('2017-05-11')
         end
 
         it '#wf_conforming_price_code' do
-          expect(@mma_wf.wf_conforming_price_code).to be_a(String)
-          expect(@mma_wf.wf_conforming_price_code).to eq('15966')
+          expect(subject.wf_conforming_price_code).to be_a(String)
+          expect(subject.wf_conforming_price_code).to eq('15966')
         end
 
         it '#wf_conforming_effective_time' do
-          expect(@mma_wf.wf_conforming_effective_time).to be_a(String)
-          expect(@mma_wf.wf_conforming_effective_time).to eq('08:00 AM CT')
+          expect(subject.wf_conforming_effective_time).to be_a(String)
+          expect(subject.wf_conforming_effective_time).to eq('08:00 AM CT')
         end
 
         it '#wf_conforming_expiration_dates' do
-          expect(@mma_wf.wf_conforming_expiration_dates).to eq({:seven_day=>"2017-05-18", :thirty_day=>"2017-06-12", :fourty_five_day=>"2017-06-26", :sixty_day=>"2017-07-10", :seventy_day=>"N/A", :seventy_five_day=>"2017-07-25"})
+          expect(subject.wf_conforming_expiration_dates).to eq({:seven_day=>"2017-05-18", :thirty_day=>"2017-06-12", :fourty_five_day=>"2017-06-26", :sixty_day=>"2017-07-10", :seventy_day=>"N/A", :seventy_five_day=>"2017-07-25"})
         end
 
         it '#wf_conforming_conf_title_index' do
-          expect(@mma_wf.wf_conforming_conf_title_index).to eq(20)
+          expect(subject.wf_conforming_conf_title_index).to eq(20)
         end
       end
 end

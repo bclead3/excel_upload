@@ -7,41 +7,47 @@ module MMA
       attr_reader :wb, :sheet, :row_arr
 
       def initialize( f ) #= File.new( "/Users/bleadholm/Downloads/BenStage1\\ February\\ 20.xlsx" ) )
-          instantiate_workbook( f )
-          @sheet = data_sheet( @wb )
-          @row_arr = row_array( @sheet )
+        Rails.logger.debug( "about to instantiate_workbook with file:#{f.inspect}" )
+        instantiate_workbook( f )
+        Rails.logger.debug( 'about to call data_sheet with instantiated workbook' )
+        @sheet = data_sheet( @wb )
+        Rails.logger.debug( 'about to call row_array from sheet' )
+        @row_arr = row_array( @sheet )
       end
 
       def instantiate_workbook( obj )
         begin
           if obj.is_a?(String)
             f = File.new( obj )
-            extension = f.path.split('.')[-1].downcase
-            @wb = Roo::Spreadsheet.open( f, extension: extension.to_sym )
+            if f.size > 0
+              extension = f.path.split('.')[-1].downcase
+              @wb = Roo::Spreadsheet.open( f, extension: extension.to_sym )
+              Rails.logger.info "succeffully opened #{extension == 'xls' ? 'old-school XLS' : 'XLSX'} workbook"
+              @wb
+            end
           elsif obj.is_a?(File)
-            Rails.logger.info "obj is a file #{obj}"
-            extension = obj.path.split('.')[-1].downcase
-            @wb = Roo::Spreadsheet.open( f, extension: extension.to_sym )
-            Rails.logger.info "succeffully opened #{extension == 'xls' ? 'old-school XLS' : 'XLSX'} workbook"
-            # if obj.path.split('.')[-1].downcase == 'xlsx'
-            #   @wb = Roo::Spreadsheet.open( obj )
-            #   Rails.logger.info 'succeffully opened XLSX workbook'
-            # elsif obj.path.split('.')[-1].downcase == 'xls'
-            #   @wb = Spreadsheet.open( obj )
-            #   Rails.logger.info 'succeffully opened old-school XLS workbook'
-            # end
+            if obj.size > 0
+              Rails.logger.info "obj is a file #{obj}"
+              extension = obj.path.split('.')[-1].downcase
+              @wb = Roo::Spreadsheet.open( obj, extension: extension.to_sym )
+              Rails.logger.info "succeffully opened #{extension == 'xls' ? 'old-school XLS' : 'XLSX'} workbook"
+              @wb
+            end
           end
         rescue Exception=>ex
-          Rails.logger.error( "Couldn't load workbook from #{obj}" )
+          Rails.logger.error( "Couldn't load workbook from #{obj} #{ex.message}" )
         end
       end
 
       def data_sheet( wb_obj )
+        Rails.logger.debug( "entered LoadExcel instance with #data_sheet" )
         begin
           sheet_name = wb_obj.sheets.select{|x| /Data/.match( x )}.first
+          Rails.logger.debug( "The sheet name is:#{sheet_name}" )
           wb_obj.sheet( sheet_name ) if sheet_name
-        rescue
-
+        rescue Exception=>ex
+          Rails.logger.warn( "error in #data_sheet #{ex.message}" )
+          Rails.logger.warn( "error in #data_sheet #{ex.backtrace}" )
         end
       end
 
@@ -49,8 +55,24 @@ module MMA
         out_arr = []
         if sheet
           (sheet.first_row..sheet.last_row).each do |row_num|
+            Rails.logger.debug( "processing row:#{row_num}" )
             arr = sheet.row( row_num )
-            out_arr << eval( arr.to_s )
+            Rails.logger.debug( "retrieved array:#{arr}" )
+            begin
+              out_arr << arr #eval( arr.to_s )
+            rescue Exception=>ex
+              Rails.logger.warn( "Exception:#{ex} trying to just add array with .to_s" )
+              begin
+              out_arr << arr.to_s
+              rescue Exception=>x
+                Rails.logger.warn( "Exception:#{x} trying to just add array as-is" )
+                begin
+                  out_arr << arr
+                rescue Exception=>e
+                  Rails.logger.warn( "Exception:#{e} FUGGEDDABOUDITTT" )
+                end
+              end
+            end
           end
         end
         out_arr

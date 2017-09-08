@@ -73,9 +73,11 @@ class ExcelFilesController < ApplicationController
       begin
       file = File.new( @excel_file.xl.file.file )
       Rails.logger.info("Processing file:#{file.inspect}")
-      if file
+      if file && file.size > 2000
         loader = MMA::Excel::LoadExcel.new( @excel_file.xl.file.file )
         row_arr = loader.row_arr
+        puts 'row_arr'
+        puts row_arr
       else
         row_arr = []
       end
