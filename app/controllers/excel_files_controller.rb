@@ -92,6 +92,11 @@ class ExcelFilesController < ApplicationController
     MMA::Excel::ParseExcel.process_array( row_arr )
   end
 
+  def landing
+    @excel_file
+    redirect_to '/landing_page'
+  end
+
   def fnma_type
     if MMA::Loan.count > 0
       @fnma_15_ls   = MMA::Loan.where("loan_program IN ('#{MMA::FNMA_15_TYPE_ARRAY.join("','")}')").order(:loan_program)
@@ -126,7 +131,12 @@ class ExcelFilesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_excel_file
       file_id = params[:id] || params[:excel_file_id]
-      @excel_file = ExcelFile.find(file_id)
+      if file_id == 'landing_page'
+        @excel_file = ExcelFile.last
+      else
+        @excel_file = ExcelFile.find(file_id)
+      end
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

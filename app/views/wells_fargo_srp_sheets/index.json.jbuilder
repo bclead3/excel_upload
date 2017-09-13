@@ -1,0 +1,1 @@
+json.array! @wells_fargo_srp_sheets, partial: 'wells_fargo_srp_sheets/wells_fargo_srp_sheet', as: :wells_fargo_srp_sheet

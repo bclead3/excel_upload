@@ -12,16 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :description %><br>
+    <%= f.label :description %><br/>
     <%= f.text_field :description %>
   </div>
 
   <div class="field">
-    <%= f.label :Excel %><br>
-    <%= f.file_field :xl %>
+    <%= f.label :excel_file, 'Excel File' %><br/>
+    <%= f.file_field :xl %><br/>
+    <%= f.text_field :xl, :maxlength=>'254', :readonly => true %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <% if @excel_file.nil? || @excel_file.xl.blank? %>
+      <%= f.submit 'Upload Excel File' %>
+    <% else %>
+      <%= f.submit 'Update Excel File' %>
+    <% end %>
   </div>
 <% end %>

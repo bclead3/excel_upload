@@ -16,7 +16,8 @@
     <% @excel_files.each do |excel_file| %>
       <tr>
         <td><%= excel_file.description %></td>
-        <td><%= excel_file.xl %></td>
+        <% full_path = excel_file.xl.path %>
+        <td><%= full_path.split('/').last %></td>
         <td><%= link_to 'Show', excel_file %></td>
         <td><%= link_to 'Edit', edit_excel_file_path(excel_file) %></td>
         <td><%= link_to 'Destroy', excel_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>

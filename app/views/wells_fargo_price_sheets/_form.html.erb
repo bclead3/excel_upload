@@ -1,0 +1,30 @@
+<%= form_for(@wells_fargo_price_sheet, :html => {:multipart => true}) do |f| %>
+  <% if @wells_fargo_price_sheet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wells_fargo_price_sheet.errors.count, "error") %> prohibited this wells_fargo_price_sheet from being saved:</h2>
+
+      <ul>
+      <% @wells_fargo_price_sheet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :thefile, 'Price Workbook' %>
+    <%= f.file_field :thefile %><br/>
+      <%= f.text_field :thefile, :maxlength=>'254', :readonly => true %>
+  </div>
+  <div class="actions">
+    <% if @wells_fargo_price_sheet.nil? || @wells_fargo_price_sheet.thefile.blank? %>
+        <%= f.submit 'Upload Price Workbook' %>
+    <% else %>
+        <%= f.submit 'Update Price Workbook' %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,1 @@
+json.array! @wells_fargo_price_sheets, partial: 'wells_fargo_price_sheets/wells_fargo_price_sheet', as: :wells_fargo_price_sheet

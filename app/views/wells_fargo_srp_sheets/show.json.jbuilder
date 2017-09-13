@@ -1,0 +1,1 @@
+json.partial! "wells_fargo_srp_sheets/wells_fargo_srp_sheet", wells_fargo_srp_sheet: @wells_fargo_srp_sheet

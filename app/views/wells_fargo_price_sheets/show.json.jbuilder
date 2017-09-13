@@ -1,0 +1,1 @@
+json.partial! "wells_fargo_price_sheets/wells_fargo_price_sheet", wells_fargo_price_sheet: @wells_fargo_price_sheet

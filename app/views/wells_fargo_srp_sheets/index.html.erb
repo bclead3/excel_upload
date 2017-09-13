@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Wells Fargo SRP Sheets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>File Name</th>
+      <th colspan='3'></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wells_fargo_srp_sheets.each do |wells_fargo_srp_sheet| %>
+      <tr>
+        <td><%= wells_fargo_srp_sheet.description %></td>
+        <% full_path = wells_fargo_srp_sheet.thefile.path %>
+        <td><%= full_path.split('/').last %></td>
+        <td><%= link_to 'Show', wells_fargo_srp_sheet %></td>
+        <td><%= link_to 'Edit', edit_wells_fargo_srp_sheet_path(wells_fargo_srp_sheet) %></td>
+        <td><%= link_to 'Destroy', wells_fargo_srp_sheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wells Fargo SRP Sheet', new_wells_fargo_srp_sheet_path %>

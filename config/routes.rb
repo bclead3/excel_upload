@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :wells_fargo_srp_sheets
+  resources :wells_fargo_price_sheets
   devise_for :users
 
   #get '/excel_files/process/:id' => 'excel_files#process'
@@ -17,7 +19,7 @@ Rails.application.routes.draw do
 
 
   # You can have the root of your site routed with "root"
-  root 'excel_files#index'
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

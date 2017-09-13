@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Wells Fargo Price Sheets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Thefile</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wells_fargo_price_sheets.each do |wells_fargo_price_sheet| %>
+      <tr>
+        <td><%= wells_fargo_price_sheet.description %></td>
+        <% full_path = wells_fargo_price_sheet.thefile.path %>
+        <td><%= full_path.to_s.split('/').last %></td>
+        <td><%= link_to 'Show', wells_fargo_price_sheet %></td>
+        <td><%= link_to 'Edit', edit_wells_fargo_price_sheet_path(wells_fargo_price_sheet) %></td>
+        <td><%= link_to 'Destroy', wells_fargo_price_sheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wells fargo price sheet', new_wells_fargo_price_sheet_path %>

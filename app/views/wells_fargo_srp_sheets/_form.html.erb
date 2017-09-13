@@ -1,0 +1,30 @@
+<%= form_for(@wells_fargo_srp_sheet, :html => {:multipart => true}) do |f| %>
+  <% if @wells_fargo_srp_sheet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wells_fargo_srp_sheet.errors.count, "error") %> prohibited this wells_fargo_srp_sheet from being saved:</h2>
+
+      <ul>
+      <% @wells_fargo_srp_sheet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %>&nbsp;
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :thefile, 'SRP Workbook' %>&nbsp;
+    <%= f.file_field :thefile %><br/>
+    <%= f.text_field :thefile, :maxlength=>'254', :readonly => true %>
+  </div>
+    <div class="actions">
+      <% if @wells_fargo_srp_sheet.nil? || @wells_fargo_srp_sheet.thefile.blank? %>
+          <%= f.submit 'Upload SRP File' %>
+      <% else %>
+          <%= f.submit 'Update SRP File' %>
+      <% end %>
+    </div>
+<% end %>
