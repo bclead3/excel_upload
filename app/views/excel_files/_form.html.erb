@@ -1,7 +1,7 @@
 <%= form_for(@excel_file, :html => {:multipart => true}) do |f| %>
   <% if @excel_file.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@excel_file.errors.count, "error") %> prohibited this excel_file from being saved:</h2>
+    <div id='error_explanation'>
+      <h2><%= pluralize(@excel_file.errors.count, 'error') %> prohibited this excel_file from being saved:</h2>
 
       <ul>
       <% @excel_file.errors.full_messages.each do |message| %>
@@ -17,7 +17,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :excel_file, 'Excel File' %><br/>
+    <%= f.label :xl, 'Excel File' %><br/>
     <%= f.file_field :xl %><br/>
     <%= f.text_field :xl, :maxlength=>'254', :readonly => true %>
   </div>

@@ -69,6 +69,6 @@ class WellsFargoSrpSheetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wells_fargo_srp_sheet_params
-      params.require(:wells_fargo_srp_sheet).permit(:description, :thefile)
+      params.require(:wells_fargo_srp_sheet).permit(:description, :srp)
     end
 end

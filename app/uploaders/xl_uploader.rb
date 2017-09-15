@@ -14,6 +14,14 @@ class XlUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  #process :parse_to_array
+
+  #def parse_to_array
+    #puts 'within parse_to_array'
+    # puts "About to load Excel file #{xl.inspect}"
+    # obj = MMA::Excel::LoadExcel.new( xl )
+    # puts "obj is:#{obj.inspect}"
+  #end
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
@@ -38,6 +46,9 @@ class XlUploader < CarrierWave::Uploader::Base
   # For images you might use something like this:
   # def extension_whitelist
   #   %w(jpg jpeg gif png)
+  # end
+  # def extension_whitelist
+  #   %w(xls xlsx)
   # end
 
   # Override the filename of the uploaded files:

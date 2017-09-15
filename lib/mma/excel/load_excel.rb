@@ -1,6 +1,6 @@
 
 
-module MMA
+module MMA        # MMA::Excel::LoadExcel
   module Excel
     class LoadExcel
 

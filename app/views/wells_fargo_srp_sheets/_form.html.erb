@@ -16,9 +16,9 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :thefile, 'SRP Workbook' %>&nbsp;
-    <%= f.file_field :thefile %><br/>
-    <%= f.text_field :thefile, :maxlength=>'254', :readonly => true %>
+    <%= f.label :srp %><br/>&nbsp;
+    <%= f.file_field :srp %><br/>
+    <%# f.text_field :srp, :maxlength=>'254', :readonly => true %>
   </div>
     <div class="actions">
       <% if @wells_fargo_srp_sheet.nil? || @wells_fargo_srp_sheet.thefile.blank? %>

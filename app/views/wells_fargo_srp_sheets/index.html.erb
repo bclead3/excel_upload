@@ -15,7 +15,7 @@
     <% @wells_fargo_srp_sheets.each do |wells_fargo_srp_sheet| %>
       <tr>
         <td><%= wells_fargo_srp_sheet.description %></td>
-        <% full_path = wells_fargo_srp_sheet.thefile.path %>
+        <% full_path = wells_fargo_srp_sheet.srp ? wells_fargo_srp_sheet.srp : ''%>
         <td><%= full_path.split('/').last %></td>
         <td><%= link_to 'Show', wells_fargo_srp_sheet %></td>
         <td><%= link_to 'Edit', edit_wells_fargo_srp_sheet_path(wells_fargo_srp_sheet) %></td>

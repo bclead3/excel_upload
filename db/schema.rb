@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20170912000009) do
 
   create_table "wells_fargo_srp_sheets", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "description"
-    t.string   "thefile"
+    t.string   "srp"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
