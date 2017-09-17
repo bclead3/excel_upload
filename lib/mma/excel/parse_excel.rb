@@ -1,5 +1,5 @@
 
-module MMA
+module MMA        # MMA::Excel::ParseExcel.process_array( arr )
   module Excel
     LOAN_ARRAY_SIZE_CUTOFF = 60
     class ParseExcel

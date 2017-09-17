@@ -1,5 +1,7 @@
 class XlUploader < CarrierWave::Uploader::Base
 
+  attr_accessor :xl_obj
+
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -14,14 +16,25 @@ class XlUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  #process :parse_to_array
+  process :parse_to_array
+  process :import_into_loans_table
 
-  #def parse_to_array
+  def parse_to_array
     #puts 'within parse_to_array'
-    # puts "About to load Excel file #{xl.inspect}"
-    # obj = MMA::Excel::LoadExcel.new( xl )
-    # puts "obj is:#{obj.inspect}"
-  #end
+    #puts "About to load Excel file #{self.inspect}"
+    #puts "file:#{self.file.file}"
+    f = self.file.file
+    @xl_obj = MMA::Excel::LoadExcel.new( f )
+  end
+
+  def import_into_loans_table
+    #puts 'within import_indo_loans_table'
+    #puts "About to delete #{MMA::Loan.count} existing loan rows"
+    count = MMA::Loan.delete_all
+    #puts "#{count} loan records deleted"
+    #puts "The data sheet contains #{@xl_obj.row_arr.count} rows"
+    MMA::Excel::ParseExcel.process_array( @xl_obj.row_arr )
+  end
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
