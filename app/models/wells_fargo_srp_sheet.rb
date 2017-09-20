@@ -1,8 +1,8 @@
 class WellsFargoSrpSheet < ActiveRecord::Base
-  attr_accessor :thefile, :name #:description
-  mount_uploader :thefile, XlUploader
+  attr_accessor :srp, :name #:description
+  mount_uploader :srp, SrpUploader
 
   def filename
-    self.thefile.split('/').last
+    @srp.split('/').last unless @srp.nil?
   end
 end

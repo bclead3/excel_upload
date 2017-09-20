@@ -16,9 +16,9 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :thefile, 'Price Workbook' %>
+    <%= f.label 'Price Workbook' %>
     <%= f.file_field :thefile %><br/>
-      <%= f.text_field :thefile, :maxlength=>'254', :readonly => true %>
+      <%# f.text_field :thefile, :maxlength=>'254', :readonly => true %>
   </div>
   <div class="actions">
     <% if @wells_fargo_price_sheet.nil? || @wells_fargo_price_sheet.thefile.blank? %>

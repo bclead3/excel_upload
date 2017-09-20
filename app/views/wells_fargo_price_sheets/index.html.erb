@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Description</th>
-      <th>Thefile</th>
+      <th>&nbsp;Price Sheet&nbsp;</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,7 +16,7 @@
       <tr>
         <td><%= wells_fargo_price_sheet.description %></td>
         <% full_path = wells_fargo_price_sheet.thefile.path %>
-        <td><%= full_path.to_s.split('/').last %></td>
+        <td><%= full_path.to_s.split('/').last if full_path %></td>
         <td><%= link_to 'Show', wells_fargo_price_sheet %></td>
         <td><%= link_to 'Edit', edit_wells_fargo_price_sheet_path(wells_fargo_price_sheet) %></td>
         <td><%= link_to 'Destroy', wells_fargo_price_sheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
