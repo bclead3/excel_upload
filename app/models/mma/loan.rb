@@ -87,5 +87,13 @@ module MMA
       scramble_field( :borrower_first_name )
     end
 
+
+    def hashup
+      hash                          = JSON.parse( self.to_json )
+      hash['dollar_margin']         = self.dollar_margin.to_f.round(2)
+      hash['expected_house_margin'] = self.expected_house_margin.to_f.round(5)
+      hash
+    end
+
   end
 end

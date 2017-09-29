@@ -70,7 +70,12 @@ module MMA   # MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing
               return_hash[category] = {}
               column_index_arr.each_with_index do |day_category, day_part_idx|
                 day_index = day_part_idx + 3
-                return_hash[category][day_category] = wf_conforming_pricing_array[row_index][day_index]
+                if wf_conforming_pricing_array[row_index][day_index] == 'N/A'
+                  return_hash[category][day_category] = wf_conforming_pricing_array[row_index][day_index]
+                else
+                  return_hash[category][day_category] = wf_conforming_pricing_array[row_index][day_index].round(3)
+                end
+
               end
             end
             return_hash
@@ -100,9 +105,9 @@ module MMA   # MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing
                   else
                     rate_val = row[column_index].to_s
                     return_hash[category][rate_val] = {}
-                    return_hash[category][rate_val]['rate'] = row[column_index]
-                    return_hash[category][rate_val]['30day'] = row[column_index+1]
-                    return_hash[category][rate_val]['60day'] = row[column_index+2]
+                    return_hash[category][rate_val]['rate'] = row[column_index].round(3)
+                    return_hash[category][rate_val]['30day'] = row[column_index+1].round(3)
+                    return_hash[category][rate_val]['60day'] = row[column_index+2].round(3)
                   end
                 end
               end
@@ -112,17 +117,17 @@ module MMA   # MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing
 
           def hashup
             out_hash = {}
-            out_hash[:date] = wf_conforming_date
-            out_hash[:price_code] = wf_conforming_price_code
-            out_hash[:effective_time] = wf_conforming_effective_time
-            out_hash[:expiration_dates] = wf_conforming_expiration_dates
+            out_hash[:date]                     = wf_conforming_date
+            out_hash[:price_code]               = wf_conforming_price_code
+            out_hash[:effective_time]           = wf_conforming_effective_time
+            out_hash[:expiration_dates]         = wf_conforming_expiration_dates
             out_hash[:conventional_fixed_rates] = {}
             %w[30yr 20yr 15yr 10yr 30yr_relo].each do |category|
               out_hash[:conventional_fixed_rates][category] = wf_conforming_category_fixed( category )
             end
-            out_hash[:additional_lock_periods] = wf_conforming_additional_lock_periods
+            out_hash[:additional_lock_periods]  = wf_conforming_additional_lock_periods
 
-            out_hash[:conforming_libor_arms]   = wf_conforming_libor_arms
+            out_hash[:conforming_libor_arms]    = wf_conforming_libor_arms
             out_hash
           end
 

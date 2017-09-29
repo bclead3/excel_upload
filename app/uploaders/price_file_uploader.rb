@@ -1,4 +1,8 @@
+require 'pp'
+
 class PriceFileUploader < CarrierWave::Uploader::Base
+
+  attr_accessor :xl_obj, :price_hash
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -14,4 +18,21 @@ class PriceFileUploader < CarrierWave::Uploader::Base
     %w(xls xlsx)
   end
 
+  process :parse_to_array
+  process :do_hashup
+
+  def parse_to_array
+    puts "self.file.file:#{self.file.file}"
+    f = File.new( self.file.file )
+    puts "The file is:#{f.path}"
+    @xl_obj = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing.new(f, 0 )
+  end
+
+  def do_hashup
+    puts 'in do_hashup'
+    @price_hash = @xl_obj.hashup
+    pp @price_hash
+    model.json = @price_hash
+    model.save
+  end
 end

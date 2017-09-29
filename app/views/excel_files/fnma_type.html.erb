@@ -45,13 +45,13 @@
 <h3>By Mortgage Type</h3>
 
 
-  <%= render partial: 'excel_files/shared/sub_report', locals: {report_name:'FNMA 5-15 Year', loan_arr: @fnma_15_opn} %>
+  <%= render partial: 'excel_files/shared/sub_report_hash', locals: {report_name:'FNMA 5-15 Year', loan_arr: @fnma_15_opn, loan_h: @f_15_opn_h} %>
 
-  <%= render partial: 'excel_files/shared/sub_report', locals: {report_name:'FNMA CLOSED 5-15 Year', loan_arr: @fnma_15_clsd} %>
+  <%= render partial: 'excel_files/shared/sub_report_hash', locals: {report_name:'FNMA CLOSED 5-15 Year', loan_arr: @fnma_15_clsd, loan_h: @f_15_clsd_h} %>
 
-  <%= render partial: 'excel_files/shared/sub_report', locals: {report_name:'FNMA 20-30 Year', loan_arr: @fnma_open} %>
+  <%= render partial: 'excel_files/shared/sub_report_hash', locals: {report_name:'FNMA 20-30 Year', loan_arr: @fnma_open, loan_h: @f_30_opn_h} %>
 
-  <%= render partial: 'excel_files/shared/sub_report', locals: {report_name:'FNMA CLOSED 20-30 Year', loan_arr: @fnma_closed} %>
+  <%= render partial: 'excel_files/shared/sub_report_hash', locals: {report_name:'FNMA CLOSED 20-30 Year', loan_arr: @fnma_closed, loan_h: @f_30_clsd_h} %>
 
   <%= render partial: 'excel_files/shared/sub_report_total', locals: {xnma_15_opn: @fnma_15_opn, xnma_15_clsd: @fnma_15_clsd, xnma_open: @fnma_open, xnma_closed: @fnma_closed} %>
 

@@ -1,0 +1,29 @@
+<tbody>
+<% dollar_total = 0; loan_arr.select{|x| dollar_total = dollar_total + x.dollar_margin} %>
+<% sum_loan_amt = 0.0; loan_arr.select{|x| sum_loan_amt = sum_loan_amt + x.loan_amt} %>
+<% dlr_pctg = ( dollar_total.to_f / sum_loan_amt.to_f ) * 100 %>
+<% loan_h.each do |k,l_h| %>
+    <tr>
+      <td><%= l_h[:loan_id] %></td>
+      <td><%= l_h['loan_program'] %></td>
+      <td><%= l_h['note_rate'] %></td>
+      <td><%= number_to_currency( l_h['loan_amt'] ) %></td>
+      <td><%= l_h['investor'] %></td>
+      <td><%= l_h['loan_trade_total_buy_price'] %></td>
+      <td><%= l_h['loan_trade_total_sell_price'] %></td>
+      <td><%= number_to_currency( l_h['dollar_margin'] ) %></td>
+      <td><%= l_h['expected_house_margin'] %></td>
+      <td><%= l_h[:ltv] %></td>
+      <td><%= l_h[:combined_ltv] %></td>
+      <td><%= l_h[:fico] %></td>
+      <td><%= l_h[:wf_price] ? l_h[:wf_price][:thirty_day] : 'n/a'%></td>
+      <td><%= l_h[:wf_price] ? l_h[:wf_price][:sixty_day]  : 'n/a'%></td>
+    </tr>
+<% end %>
+<tr>
+  <td colspan="3"></td>
+  <td colspan="4"><%= number_to_currency(sum_loan_amt.to_s )%></td>
+  <td class="to_right"><%= number_to_currency(dollar_total ) %></td>
+  <td class="to_right"><%= dlr_pctg.round(5).to_s %></td>
+</tr>
+</tbody>

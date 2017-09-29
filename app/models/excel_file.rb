@@ -5,4 +5,5 @@ class ExcelFile < ActiveRecord::Base
   def filename
     @xl.split('/').last unless @xl.nil?
   end
+
 end

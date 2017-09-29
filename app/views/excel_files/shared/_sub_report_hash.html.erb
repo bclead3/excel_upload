@@ -1,0 +1,5 @@
+<h3><%= report_name %></h3>
+<table class="output">
+  <%= render partial: 'excel_files/shared/sub_report_hash_head' %>
+  <%= render partial: 'excel_files/shared/sub_report_hash_body', locals: {loan_arr: loan_arr, loan_h: loan_h} %>
+</table>

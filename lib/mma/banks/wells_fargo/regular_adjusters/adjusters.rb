@@ -27,12 +27,27 @@ module MMA    # MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_hash
             return_hash
           end
 
+          def self.loan_hash_from_subset( subset_loan_obj_arr )
+            return_hash = {}
+            subset_loan_obj_arr.each do |loan_record|
+              hash = calculate_adjusters( loan_record )
+              if hash && hash.is_a?(Hash) && hash[:loan_id]
+                id   = hash[:loan_id]
+              else
+                id   = rand(36**12).to_s(36)
+                puts "generated id is:#{id}"
+              end
+              return_hash[id] = hash
+            end
+            return_hash
+          end
+
           def self.calculate_adjusters( loan_record )
             loan_rate           = loan_record.note_rate
             loan_ltv            = loan_record.ltv
             loan_combined_ltv   = loan_record.combined_ltv
 
-            loan_type_hash      = {}
+            loan_type_hash      = loan_record.hashup
             loan_type_hash[:loan_id]  = "#{loan_record.investor.gsub(' ','')}::#{loan_record.loan_num}"
             loan_type_hash[:program]  = loan_record.loan_program
             hash                = loan_type( loan_record.loan_program )
@@ -50,8 +65,9 @@ module MMA    # MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_hash
             loan_type_hash[:last_milestone]   = loan_record.last_finished_milestone
             loan_type_hash[:lock_status]      = loan_record.lock_status
 
-            puts "#{loan_record.loan_num}\ttype:#{loan_record.loan_program}\trate:#{loan_rate}\tltv:#{loan_ltv}\tcombined_ltv:#{loan_combined_ltv}\tfico:#{loan_fico}"
-            pp loan_type_hash
+            #puts "#{loan_record.loan_num}\ttype:#{loan_record.loan_program}\trate:#{loan_rate}\tltv:#{loan_ltv}\tcombined_ltv:#{loan_combined_ltv}\tfico:#{loan_fico}"
+            #pp loan_type_hash
+            loan_type_hash
           end
 
           def self.is_conforming( loan_program_string )

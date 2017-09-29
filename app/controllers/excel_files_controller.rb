@@ -99,12 +99,53 @@ class ExcelFilesController < ApplicationController
 
   def fnma_type
     if MMA::Loan.count > 0
-      @fnma_15_ls   = MMA::Loan.where("loan_program IN ('#{MMA::FNMA_15_TYPE_ARRAY.join("','")}')").order(:loan_program)
-      @fnma_15_opn  = @fnma_15_ls.select{|loan| ! loan.is_closed }
-      @fnma_15_clsd = @fnma_15_ls.select{|loan| loan.is_closed }
+      @wf_price_h   = WellsFargoPriceSheet.last.json
+      a_hash = nil
+      srp_hash = nil
+      @fnma_15_loans= MMA::Loan.where("loan_program IN ('#{MMA::FNMA_15_TYPE_ARRAY.join("','")}')").order(:loan_program)
+      @fnma_15_opn  = @fnma_15_loans.select{|loan| ! loan.is_closed }
+      @f_15_opn_h   = MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_hash_from_subset( @fnma_15_opn )
+      @f_15_opn_h.each do |k,l_h|
+        price_h = MMA::Banks::Utils::RateMatcher.new( @wf_price_h, a_hash, srp_hash ).find_rate_price( l_h.stringify_keys )
+        puts 'price_h'
+        puts price_h
+        l_h[:wf_price] = price_h
+        @f_15_opn_h[k] = l_h
+      end
+      puts '@f_15_opn_h'
+      puts @f_15_opn_h
+      @fnma_15_clsd = @fnma_15_loans.select{|loan| loan.is_closed }
+      @f_15_clsd_h  = MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_hash_from_subset( @fnma_15_clsd )
+      @f_15_clsd_h.each do |k,l_h|
+        price_h = MMA::Banks::Utils::RateMatcher.new( @wf_price_h, a_hash, srp_hash ).find_rate_price( l_h.stringify_keys )
+        puts 'price_h'
+        puts price_h
+        l_h[:wf_price]  = price_h
+        @f_15_clsd_h[k] = l_h
+      end
+      puts '@f_15_clsd_h'
+      puts @f_15_clsd_h
+
       @fnma_loans   = MMA::Loan.where("loan_program IN ('#{MMA::FNMA_30_TYPE_ARRAY.join("','")}')").order(:loan_program)
       @fnma_open    = @fnma_loans.select{|loan| ! loan.is_closed }
+      @f_30_opn_h   = MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_hash_from_subset( @fnma_open )
+      @f_30_opn_h.each do |k, l_h|
+        price_h = MMA::Banks::Utils::RateMatcher.new( @wf_price_h, a_hash, srp_hash ).find_rate_price( l_h.stringify_keys )
+        puts 'price_h'
+        puts price_h
+        l_h[:wf_price] = price_h
+        @f_30_opn_h[k] = l_h
+      end
+
       @fnma_closed  = @fnma_loans.select{|loan| loan.is_closed }
+      @f_30_clsd_h  = MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_hash_from_subset( @fnma_closed )
+      @f_30_clsd_h.each do |k, l_h|
+        price_h = MMA::Banks::Utils::RateMatcher.new( @wf_price_h, a_hash, srp_hash ).find_rate_price( l_h.stringify_keys )
+        puts 'price_h'
+        puts price_h
+        l_h[:wf_price] = price_h
+        @f_30_clsd_h[k] = l_h
+      end
     end
   end
 
