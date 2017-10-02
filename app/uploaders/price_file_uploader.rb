@@ -22,17 +22,19 @@ class PriceFileUploader < CarrierWave::Uploader::Base
   process :do_hashup
 
   def parse_to_array
-    puts "self.file.file:#{self.file.file}"
+    Rails.logger.debug "self.file.file:#{self.file.file}"
     f = File.new( self.file.file )
-    puts "The file is:#{f.path}"
+    Rails.logger.debug "The file is:#{f.path}"
     @xl_obj = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing.new(f, 0 )
   end
 
   def do_hashup
-    puts 'in do_hashup'
+    Rails.logger.debug 'in do_hashup'
     @price_hash = @xl_obj.hashup
-    pp @price_hash
+    Rails.logger.debug '@price_hash.keys'
+    Rails.logger.debug @price_hash.keys
     model.json = @price_hash
+    Rails.logger.debug 'about to save model.json'
     model.save
   end
 end
