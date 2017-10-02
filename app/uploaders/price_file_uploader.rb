@@ -22,19 +22,25 @@ class PriceFileUploader < CarrierWave::Uploader::Base
   process :do_hashup
 
   def parse_to_array
-    Rails.logger.debug "self.file.file:#{self.file.file}"
+    Rails.logger.info "self.file.file:#{self.file.file}"
     f = File.new( self.file.file )
-    Rails.logger.debug "The file is:#{f.path}"
+    Rails.logger.info "The file is:#{f.path}"
     @xl_obj = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing.new(f, 0 )
+  rescue Exception => ex
+    Rails.logger.error("Exception within parse_to_array:#{ex.message}")
+    Rails.logger.error(ex.backtrace)
   end
 
   def do_hashup
-    Rails.logger.debug 'in do_hashup'
+    Rails.logger.info 'in do_hashup'
     @price_hash = @xl_obj.hashup
-    Rails.logger.debug '@price_hash.keys'
-    Rails.logger.debug @price_hash.keys
+    Rails.logger.info '@price_hash.keys'
+    Rails.logger.info @price_hash.keys
     model.json = @price_hash
-    Rails.logger.debug 'about to save model.json'
+    Rails.logger.info 'about to save model.json'
     model.save
+  rescue Exception => ex
+    Rails.logger.error("Exception within do_hashup:#{ex.message}")
+    Rails.logger.error(ex.backtrace)
   end
 end
