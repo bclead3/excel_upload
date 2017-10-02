@@ -3,7 +3,7 @@ module MMA   # MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic
     module WellsFargo
       module RateSheet
 
-        f = File.new("/Users/bleadholm/Downloads/Ben\ Stage\ 2\ -\ All\ highly\ confidential/2017.5.11.am.8.00.15966.correspondent.aes.Well.may.11.best.efforts.xls")
+        #f = File.new("/Users/bleadholm/Downloads/Ben\ Stage\ 2\ -\ All\ highly\ confidential/2017.5.11.am.8.00.15966.correspondent.aes.Well.may.11.best.efforts.xls")
 
         class WellsFargoLogic
           # include ClassLevelInheritableAttributes
