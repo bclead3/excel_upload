@@ -3,7 +3,7 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpLogic
     module WellsFargo
       module SrpAdjusters
 
-        f = File.new("/Users/bleadholm/Downloads/FW_BenStage2/Wells\ Sample\ SRP\ Schedule.xlsx")
+        #f = File.new("/Users/bleadholm/Downloads/FW_BenStage2/Wells\ Sample\ SRP\ Schedule.xlsx")
 
         class WellsFargoSrpLogic
           # include ClassLevelInheritableAttributes
@@ -12,6 +12,9 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpLogic
           attr_accessor :worksheet_rows, :wf_xl
 
           def initialize( object, sheet_number = 0 )
+            if object.is_a?(String) && object.index('/')
+              object = File.new( object )
+            end
             @wf_xl  = MMA::Excel::LoadExcel.new( object ).wb if object.is_a?(File)
             puts "successfully opened @wf_xl:#{@wf_xl}"        if object.is_a?(File)
             if object && object.is_a?(Array)

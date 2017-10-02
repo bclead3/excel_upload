@@ -3,7 +3,7 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpNonConfGrid
     module WellsFargo
       module SrpAdjusters
 
-        f = File.new("/Users/bleadholm/Downloads/FW_BenStage2/Wells\ Sample\ SRP\ Schedule.xlsx")
+        #f = File.new("/Users/bleadholm/Downloads/FW_BenStage2/Wells\ Sample\ SRP\ Schedule.xlsx")
 
         NON_CONF_GRID_SHEET_INDEX = 2
 

@@ -33,10 +33,10 @@ class PriceFileUploader < CarrierWave::Uploader::Base
 
   def do_hashup
     Rails.logger.info 'in do_hashup'
-    @price_hash = @xl_obj.hashup
+    @srp_hash = @xl_obj.hashup
     Rails.logger.info '@price_hash.keys'
-    Rails.logger.info @price_hash.keys
-    model.json = @price_hash
+    Rails.logger.info @srp_hash.keys
+    model.json = @srp_hash
     Rails.logger.info 'about to save model.json'
     model.save
   rescue Exception => ex

@@ -7,7 +7,7 @@ module MMA    # MMA::Banks::Utils::RateMatcher.new( p_hash, a_hash, srp_hash ).f
         attr_accessor :price_hash, :adjuster_hash, :srp_hash
 
         def initialize( price_hash, adjuster_hash, srp_hash )
-          @price_hash     = price_hash
+          @srp_hash     = price_hash
           @adjuster_hash  = adjuster_hash
           @srp_hash       = srp_hash
         end
@@ -24,25 +24,25 @@ module MMA    # MMA::Banks::Utils::RateMatcher.new( p_hash, a_hash, srp_hash ).f
           price_hash = {}
           if loan_type == 'FNMA'
             if loan_years == 30
-              if price_hash = @price_hash[:conventional_fixed_rates]["#{loan_years}yr"][loan_rate]
+              if price_hash = @srp_hash[:conventional_fixed_rates]["#{loan_years}yr"][loan_rate]
                 puts price_hash
               else
                 puts "no 30yr price info for #{loan_hash}"
               end
             elsif loan_years == 20 || loan_years == 25
-              if price_hash = @price_hash[:conventional_fixed_rates]['20yr'][loan_rate]
+              if price_hash = @srp_hash[:conventional_fixed_rates]['20yr'][loan_rate]
                 puts price_hash
               else
                 puts "no 20yr price info for #{loan_hash}"
               end
             elsif loan_years == 15
-              if price_hash = @price_hash[:conventional_fixed_rates]['15yr'][loan_rate]
+              if price_hash = @srp_hash[:conventional_fixed_rates]['15yr'][loan_rate]
                 puts price_hash
               else
                 puts "no 15yr price info for #{loan_hash}"
               end
             elsif loan_years == 10
-              if price_hash = @price_hash[:conventional_fixed_rates]['10yr'][loan_rate]
+              if price_hash = @srp_hash[:conventional_fixed_rates]['10yr'][loan_rate]
                 puts price_hash
               else
                 puts "no 10yr price info for #{loan_hash}"

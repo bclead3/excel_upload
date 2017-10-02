@@ -39,7 +39,7 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpConvFullGrid
         STATE_ROW_OFFSET            = 4
 
 
-        f = File.new("/Users/bleadholm/Downloads/FW_BenStage2/Wells\ Sample\ SRP\ Schedule.xlsx")
+        #f = File.new("/Users/bleadholm/Downloads/FW_BenStage2/Wells\ Sample\ SRP\ Schedule.xlsx")
 
         class WellsFargoSrpConvFullGrid < WellsFargoSrpLogic
 

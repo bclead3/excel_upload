@@ -4,7 +4,7 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpGovFullGrid
       module SrpAdjusters
 
         GOV_FULL_GRID_SHEET_INDEX = 1
-        f = File.new("/Users/bleadholm/Downloads/FW_BenStage2/Wells\ Sample\ SRP\ Schedule.xlsx")
+        #f = File.new("/Users/bleadholm/Downloads/FW_BenStage2/Wells\ Sample\ SRP\ Schedule.xlsx")
 
         class WellsFargoSrpGovFullGrid < WellsFargoSrpLogic
 
