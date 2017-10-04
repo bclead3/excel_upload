@@ -24,15 +24,23 @@ class WellsFargoSrpSheetsController < ApplicationController
   # POST /wells_fargo_srp_sheets
   # POST /wells_fargo_srp_sheets.json
   def create
+    Rails.logger.info "within create method of wells_fargo_srp_sheets with params: #{wells_fargo_srp_sheet_params.inspect}"
     @wells_fargo_srp_sheet = WellsFargoSrpSheet.new(wells_fargo_srp_sheet_params)
 
     respond_to do |format|
-      if @wells_fargo_srp_sheet.save
-        format.html { redirect_to @wells_fargo_srp_sheet, notice: 'Wells fargo srp sheet was successfully created.' }
-        format.json { render :show, status: :created, location: @wells_fargo_srp_sheet }
-      else
-        format.html { render :new }
-        format.json { render json: @wells_fargo_srp_sheet.errors, status: :unprocessable_entity }
+      Rails.logger.info "the format is:#{format}"
+      Rails.logger.info 'about to save'
+      begin
+        if @wells_fargo_srp_sheet.save
+          format.html { redirect_to @wells_fargo_srp_sheet, notice: 'Wells fargo srp sheet was successfully created.' }
+          format.json { render :show, status: :created, location: @wells_fargo_srp_sheet }
+        else
+          format.html { render :new }
+          format.json { render json: @wells_fargo_srp_sheet.errors, status: :unprocessable_entity }
+        end
+      rescue Exception=>ex
+        Rails.logger.error "Exception in create controller method:#{ex.message}"
+        Rails.logger.error ex.backtrace
       end
     end
   end
@@ -40,13 +48,21 @@ class WellsFargoSrpSheetsController < ApplicationController
   # PATCH/PUT /wells_fargo_srp_sheets/1
   # PATCH/PUT /wells_fargo_srp_sheets/1.json
   def update
+    Rails.logger.info "within update method of wells_fargo_srp_sheet with params:#{wells_faro_srp_sheet_params.inspect}"
     respond_to do |format|
-      if @wells_fargo_srp_sheet.update(wells_fargo_srp_sheet_params)
-        format.html { redirect_to @wells_fargo_srp_sheet, notice: 'Wells fargo srp sheet was successfully updated.' }
-        format.json { render :show, status: :ok, location: @wells_fargo_srp_sheet }
-      else
-        format.html { render :edit }
-        format.json { render json: @wells_fargo_srp_sheet.errors, status: :unprocessable_entity }
+      Rails.logger.info "the format is:#{format}"
+      Rails.logger.info 'about to update'
+      begin
+        if @wells_fargo_srp_sheet.update(wells_fargo_srp_sheet_params)
+          format.html { redirect_to @wells_fargo_srp_sheet, notice: 'Wells fargo srp sheet was successfully updated.' }
+          format.json { render :show, status: :ok, location: @wells_fargo_srp_sheet }
+        else
+          format.html { render :edit }
+          format.json { render json: @wells_fargo_srp_sheet.errors, status: :unprocessable_entity }
+        end
+      rescue Exception=>ex
+        Rails.logger.error "Exception in update controller method:#{ex.message}"
+        Rails.logger.error ex.backtrace
       end
     end
   end

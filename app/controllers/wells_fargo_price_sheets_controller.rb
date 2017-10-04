@@ -41,8 +41,8 @@ class WellsFargoPriceSheetsController < ApplicationController
   # PATCH/PUT /wells_fargo_price_sheets/1
   # PATCH/PUT /wells_fargo_price_sheets/1.json
   def update
-    puts 'in WF Price Sheet update'
-    puts "the params are:#{wells_fargo_price_sheet_params}"
+    Rails.logger.info 'in WF Price Sheet update'
+    Rails.logger.info "the params are:#{wells_fargo_price_sheet_params}"
     respond_to do |format|
       if @wells_fargo_price_sheet.update(wells_fargo_price_sheet_params)
         format.html { redirect_to @wells_fargo_price_sheet, notice: 'Wells fargo price sheet was successfully updated.' }
