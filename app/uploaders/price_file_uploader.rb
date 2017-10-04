@@ -71,5 +71,8 @@ class PriceFileUploader < CarrierWave::Uploader::Base
 
     Rails.logger.info 'about to save model.json'
     model.save
+  rescue Exception => ex
+    Rails.logger.error( "Exception within adjuster_hashup:#{ex.message}" )
+    Rails.logger.error( ex.backtrace )
   end
 end
