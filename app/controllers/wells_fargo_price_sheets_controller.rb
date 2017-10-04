@@ -4,7 +4,13 @@ class WellsFargoPriceSheetsController < ApplicationController
   # GET /wells_fargo_price_sheets
   # GET /wells_fargo_price_sheets.json
   def index
-    @wells_fargo_price_sheets = WellsFargoPriceSheet.all
+    puts 'in wells_fargo_price_sheets controller index method'
+    begin
+      @wells_fargo_price_sheets = WellsFargoPriceSheet.all
+    rescue Exception=>ex
+      puts "Exception in wf price sheets index controller #{ex.message}"
+      puts ex.backtrace
+    end
   end
 
   # GET /wells_fargo_price_sheets/1
@@ -15,6 +21,7 @@ class WellsFargoPriceSheetsController < ApplicationController
 
   # GET /wells_fargo_price_sheets/new
   def new
+    puts 'in wells_fargo_price_sheets controller new method'
     @wells_fargo_price_sheet = WellsFargoPriceSheet.new
   end
 
@@ -25,6 +32,8 @@ class WellsFargoPriceSheetsController < ApplicationController
   # POST /wells_fargo_price_sheets
   # POST /wells_fargo_price_sheets.json
   def create
+    puts 'in WF Price Sheet create'
+    puts "the params are:#{wells_fargo_price_sheet_params}"
     @wells_fargo_price_sheet = WellsFargoPriceSheet.new(wells_fargo_price_sheet_params)
 
     respond_to do |format|
@@ -41,8 +50,8 @@ class WellsFargoPriceSheetsController < ApplicationController
   # PATCH/PUT /wells_fargo_price_sheets/1
   # PATCH/PUT /wells_fargo_price_sheets/1.json
   def update
-    Rails.logger.info 'in WF Price Sheet update'
-    Rails.logger.info "the params are:#{wells_fargo_price_sheet_params}"
+    puts 'in WF Price Sheet update'
+    puts "the params are:#{wells_fargo_price_sheet_params}"
     respond_to do |format|
       if @wells_fargo_price_sheet.update(wells_fargo_price_sheet_params)
         format.html { redirect_to @wells_fargo_price_sheet, notice: 'Wells fargo price sheet was successfully updated.' }
@@ -57,6 +66,7 @@ class WellsFargoPriceSheetsController < ApplicationController
   # DELETE /wells_fargo_price_sheets/1
   # DELETE /wells_fargo_price_sheets/1.json
   def destroy
+    puts 'about to destroy the price sheet'
     @wells_fargo_price_sheet.destroy
     respond_to do |format|
       format.html { redirect_to wells_fargo_price_sheets_url, notice: 'Wells fargo price sheet was successfully destroyed.' }

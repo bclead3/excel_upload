@@ -24,24 +24,24 @@ class PriceFileUploader < CarrierWave::Uploader::Base
 
 
   def parse_to_array
-    Rails.logger.info "self.file.file:#{self.file.file}"
+    puts 'in parse_to_array'
+    puts "self.file.file:#{self.file.file}"
     f = File.new( self.file.file )
-    Rails.logger.info "The file is:#{f.path}"
+    puts "The file is:#{f.path}"
     @xl_obj = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingPricing.new(f, 0 )
   rescue Exception => ex
-    Rails.logger.error( "Exception within parse_to_array:#{ex.message}" )
-    Rails.logger.error( ex.backtrace )
+    puts( "Exception within parse_to_array:#{ex.message}" )
+    puts( ex.backtrace )
   end
 
   def do_hashup
-    Rails.logger.info 'in do_hashup'
+    puts 'in do_hashup'
     @price_hash         = @xl_obj.hashup
-    Rails.logger.info '@price_hash.keys'
-    Rails.logger.info @price_hash.keys
+    puts "@price_hash.keys:#{@price_hash.keys}"
     temp_hash           = { adjusters:{}, pricing:{} }
     temp_hash[:pricing] = @price_hash
     model.json          = temp_hash
-    Rails.logger.info 'about to save model.json'
+    puts 'about to save model.json'
     model.save
   rescue Exception => ex
     Rails.logger.error( "Exception within do_hashup:#{ex.message}" )
@@ -49,8 +49,8 @@ class PriceFileUploader < CarrierWave::Uploader::Base
   end
 
   def adjuster_hashup
-    Rails.logger.info 'in adjuster_hashup'
-    Rails.logger.info "self.file.file:#{self.file.file}"
+    puts 'in adjuster_hashup'
+    puts "self.file.file:#{self.file.file}"
     f = File.new( self.file.file )
     Rails.logger.info "the file is:#{f.path}"
     adjuster_obj            = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingAdjusters.new( f )
@@ -69,7 +69,7 @@ class PriceFileUploader < CarrierWave::Uploader::Base
       model.json[:pricing]  = @price_hash.hashup
     end
 
-    Rails.logger.info 'about to save model.json'
+    puts 'about to save model.json'
     model.save
   rescue Exception => ex
     Rails.logger.error( "Exception within adjuster_hashup:#{ex.message}" )

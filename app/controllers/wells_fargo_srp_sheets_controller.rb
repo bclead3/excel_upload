@@ -4,6 +4,7 @@ class WellsFargoSrpSheetsController < ApplicationController
   # GET /wells_fargo_srp_sheets
   # GET /wells_fargo_srp_sheets.json
   def index
+    puts 'within wells_fargo_srp_sheets_controller index method'
     @wells_fargo_srp_sheets = WellsFargoSrpSheet.all
   end
 
@@ -14,6 +15,7 @@ class WellsFargoSrpSheetsController < ApplicationController
 
   # GET /wells_fargo_srp_sheets/new
   def new
+    puts 'within wells_fargo_srp_sheets_controller new method'
     @wells_fargo_srp_sheet = WellsFargoSrpSheet.new
   end
 
@@ -24,12 +26,12 @@ class WellsFargoSrpSheetsController < ApplicationController
   # POST /wells_fargo_srp_sheets
   # POST /wells_fargo_srp_sheets.json
   def create
-    Rails.logger.info "within create method of wells_fargo_srp_sheets with params: #{wells_fargo_srp_sheet_params.inspect}"
+    puts "within create method of wells_fargo_srp_sheets with params: #{wells_fargo_srp_sheet_params.inspect}"
     @wells_fargo_srp_sheet = WellsFargoSrpSheet.new(wells_fargo_srp_sheet_params)
 
     respond_to do |format|
-      Rails.logger.info "the format is:#{format}"
-      Rails.logger.info 'about to save'
+      puts "the format is:#{format}"
+      puts 'about to save'
       begin
         if @wells_fargo_srp_sheet.save
           format.html { redirect_to @wells_fargo_srp_sheet, notice: 'Wells fargo srp sheet was successfully created.' }
@@ -39,8 +41,8 @@ class WellsFargoSrpSheetsController < ApplicationController
           format.json { render json: @wells_fargo_srp_sheet.errors, status: :unprocessable_entity }
         end
       rescue Exception=>ex
-        Rails.logger.error "Exception in create controller method:#{ex.message}"
-        Rails.logger.error ex.backtrace
+        puts "Exception in create controller method:#{ex.message}"
+        puts ex.backtrace
       end
     end
   end
@@ -50,8 +52,8 @@ class WellsFargoSrpSheetsController < ApplicationController
   def update
     Rails.logger.info "within update method of wells_fargo_srp_sheet with params:#{wells_faro_srp_sheet_params.inspect}"
     respond_to do |format|
-      Rails.logger.info "the format is:#{format}"
-      Rails.logger.info 'about to update'
+      puts "the format is:#{format}"
+      puts 'about to update'
       begin
         if @wells_fargo_srp_sheet.update(wells_fargo_srp_sheet_params)
           format.html { redirect_to @wells_fargo_srp_sheet, notice: 'Wells fargo srp sheet was successfully updated.' }
@@ -61,8 +63,8 @@ class WellsFargoSrpSheetsController < ApplicationController
           format.json { render json: @wells_fargo_srp_sheet.errors, status: :unprocessable_entity }
         end
       rescue Exception=>ex
-        Rails.logger.error "Exception in update controller method:#{ex.message}"
-        Rails.logger.error ex.backtrace
+        puts "Exception in update controller method:#{ex.message}"
+        puts ex.backtrace
       end
     end
   end
@@ -70,6 +72,7 @@ class WellsFargoSrpSheetsController < ApplicationController
   # DELETE /wells_fargo_srp_sheets/1
   # DELETE /wells_fargo_srp_sheets/1.json
   def destroy
+    puts 'about to destroy the worksheet'
     @wells_fargo_srp_sheet.destroy
     respond_to do |format|
       format.html { redirect_to wells_fargo_srp_sheets_url, notice: 'Wells fargo srp sheet was successfully destroyed.' }

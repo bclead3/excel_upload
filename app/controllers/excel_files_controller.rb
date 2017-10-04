@@ -98,8 +98,10 @@ class ExcelFilesController < ApplicationController
   end
 
   def fnma_type
+    puts 'about to process fnma type loans'
     if MMA::Loan.count > 0
       if WellsFargoPriceSheet.order(:created_at).last
+        puts 'found the latest WellsFargoPriceSheet object, not to retrieve the json column...'
         @wf_price_h     = WellsFargoPriceSheet.order(:created_at).last.json[:pricing]
         @wf_adjusters_h = WellsFargoPriceSheet.order(:created_at).last.json[:adjusters]
       else
@@ -187,7 +189,7 @@ class ExcelFilesController < ApplicationController
 
   def non_conforming_type
     if MMA::Loan.count > 0
-      @non_conforming_loans = MMA::Loan.where("loan_program IN ('#{MMA::NON_CONFORMING_ARR.join("','")}')").order(:loan_program)
+      @non_conforming_loans = MMA::Loan.where( "loan_program IN ('#{MMA::NON_CONFORMING_ARR.join("','")}')" ).order(:loan_program)
       @non_conf_open    = @non_conforming_loans.select{|loan| ! loan.is_closed }
       @non_conf_closed  = @non_conforming_loans.select{|loan| loan.is_closed }
     end
@@ -200,13 +202,13 @@ class ExcelFilesController < ApplicationController
       if file_id == 'landing_page'
         @excel_file = ExcelFile.last
       else
-        @excel_file = ExcelFile.find(file_id)
+        @excel_file = ExcelFile.find( file_id )
       end
 
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def excel_file_params
-      params.require(:excel_file).permit(:xl, :description)
+      params.require( :excel_file ).permit( :xl, :description )
     end
 end
