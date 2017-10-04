@@ -39,6 +39,8 @@ gem 'devise'      # Library for authentication
 gem 'roo'         # Library for Excel .xlsx reading
 gem 'roo-xls'     # Library for Excel .xls  reading
 
+#gem 'facets'
+
 #group :assets do
   gem 'sprockets-rails'
   gem 'bootstrap', '~> 4.0.0.alpha6'

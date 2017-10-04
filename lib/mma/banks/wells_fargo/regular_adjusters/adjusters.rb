@@ -1,5 +1,5 @@
 
-module MMA    # MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_hash
+module MMA    # MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_type
   module Banks
     module WellsFargo
       module RegularAdjusters
@@ -35,7 +35,7 @@ module MMA    # MMA::Banks::WellsFargo::RegularAdjusters::Adjusters.loan_hash
                 id   = hash[:loan_id]
               else
                 id   = rand(36**12).to_s(36)
-                puts "generated id is:#{id}"
+                #puts "generated id is:#{id}"
               end
               return_hash[id] = hash
             end

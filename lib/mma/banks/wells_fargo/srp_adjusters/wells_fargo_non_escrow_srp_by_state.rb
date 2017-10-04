@@ -2,7 +2,7 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoNonEscrowSrpBySta
   module Banks
     module WellsFargo
       module SrpAdjusters
-        WELLS_FARGO_NON_ESCROW_SRP_HASH  = {
+        WELLS_FARGO_NON_ESCROW_SRP_HASH  = {    # MMA::Banks::WellsFargo::SrpAdjusters::WELLS_FARGO_NON_ESCROW_SRP_HASH
             'AK'=>{'fixed'=>-0.150,'arm'=>-0.040},
             'AL'=>{'fixed'=>-0.160,'arm'=>-0.040},
             'AR'=>{'fixed'=>-0.180,'arm'=>-0.070},
@@ -56,7 +56,8 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoNonEscrowSrpBySta
             'WY'=>{'fixed'=>-0.100,'arm'=>-0.030}
         }
 
-        WELLS_FARGO_STATE_ARRAY = WELLS_FARGO_NON_ESCROW_SRP_HASH.keys
+        WELLS_FARGO_STATE_ARRAY         = WELLS_FARGO_NON_ESCROW_SRP_HASH.keys
+        WELLS_FARGO_STATE_SYMBOL_ARRAY  = WELLS_FARGO_STATE_ARRAY.map{|x| x.to_sym }
 
         class WellsFargoNonEscrowSrpByState
 

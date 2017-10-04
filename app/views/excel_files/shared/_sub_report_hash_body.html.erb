@@ -18,6 +18,9 @@
       <td><%= l_h[:fico] %></td>
       <td><%= l_h[:wf_price] ? l_h[:wf_price][:thirty_day] : 'n/a'%></td>
       <td><%= l_h[:wf_price] ? l_h[:wf_price][:sixty_day]  : 'n/a'%></td>
+      <td><%= l_h[:wf_adj] ? l_h[:wf_adj]['ltv_adjustment']: 'n/a'%></td>
+      <td><%= l_h[:wf_srp] ? l_h[:wf_srp][:best_effort]    : 'n/a'%></td>
+      <td><%= l_h[:wf_srp] ? l_h[:wf_srp][:mandatory]      : 'n/a'%></td>
     </tr>
 <% end %>
 <tr>

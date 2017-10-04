@@ -1,4 +1,4 @@
-module MMA   #MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingAdjusters
+module MMA   # MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingAdjusters
   module Banks
     module WellsFargo
       module RateSheet
@@ -75,7 +75,7 @@ module MMA   #MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingAdjusters
             %w[ltv_lte_75 ltv_lte_65 ltv_gt_65_lte_75 ltv_gt_75_lte_90 ltv_gt_75_lte_95 ltv_lte_95].each_with_index do |category, row_idx|
               row_index = row_default_index + row_idx
               return_hash[category] = {
-                  'fico_lt_720' => wf_conforming_adjuster_array[row_index][fico_start_index],
+                  'fico_lt_720'  => wf_conforming_adjuster_array[row_index][fico_start_index],
                   'fico_gte_720' => wf_conforming_adjuster_array[row_index][fico_start_index+1]
               }
             end
@@ -138,6 +138,62 @@ module MMA   #MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingAdjusters
             ret_h['arm_ltv_fico_all_products']= wf_conf_adj_ltv_fico_all_products_hash
             ret_h['arm_ltv_fico_cash_out']    = wf_conf_adj_ltv_fico_cash_out_hash
             ret_h
+          end
+
+          def self.ltv_range_index_from_percent( percent )
+            if percent
+              val = percent.to_f.round(2)
+              LTV_Range_Arr.each_with_index do |element, idx|
+                if element.index( 'lt' )
+                  if eval( "#{val} < 50.0" )
+                    return idx
+                  elsif eval( "#{val} == 50.0" )
+                    return idx + 1
+                  end
+                elsif element.index( '_to_' )
+                  temp_arr = element.split( '_to_' )
+                  if eval( "#{temp_arr[0].gsub('_','.')} <= #{val} && #{val} <= #{temp_arr[1]}" )
+                    return idx
+                  end
+                end
+              end
+            end
+          end
+
+          def self.ltv_range_value_from_percent( percent )
+            if percent
+              indx = ltv_range_index_from_percent( percent )
+              #puts "ltv_range_index:#{indx} from percent:#{percent}"
+              LTV_Range_Arr[ indx ]
+            end
+          end
+
+          def self.fico_index_from_val( fico_val )
+            if fico_val
+              val = fico_val.to_i
+              FICO_Arr.each_with_index do |element, idx|
+                if element.index( 'gte' )
+                  if eval( "#{val} >= 740" )
+                    return idx
+                  end
+                elsif element.index( 'lt' )
+                  if eval( "#{val} < 620" )
+                    return idx
+                  end
+                elsif element.index( '_to_' )
+                  temp_arr = element.split( '_to_' )
+                  if eval( "#{temp_arr[0]} <= #{val} && #{val} <= #{temp_arr[1]}" )
+                    return idx
+                  end
+                end
+              end
+            end
+          end
+
+          def self.fico_array_val( fico_val )
+            if fico_val
+              FICO_Arr[ fico_index_from_val( fico_val ) ]
+            end
           end
 
           private

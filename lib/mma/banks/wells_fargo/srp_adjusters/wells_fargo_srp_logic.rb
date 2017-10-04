@@ -16,11 +16,11 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpLogic
               object = File.new( object )
             end
             @wf_xl  = MMA::Excel::LoadExcel.new( object ).wb if object.is_a?(File)
-            puts "successfully opened @wf_xl:#{@wf_xl}"        if object.is_a?(File)
+            #puts "successfully opened @wf_xl:#{@wf_xl}"        if object.is_a?(File)
             if object && object.is_a?(Array)
               @worksheet_rows   = object
             else
-              puts "About to process sheet_array number:#{sheet_number}"
+              #puts "About to process sheet_array number:#{sheet_number}"
               @worksheet_rows   = sheet_array( sheet_number )
             end
           end
@@ -28,7 +28,7 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpLogic
           def sheet_array( sheet_num = 0 )
             @worksheet_rows ||= begin
               out = []
-              puts "tabs are #{@wf_xl.sheets}"
+              #puts "tabs are #{@wf_xl.sheets}"
               sheet = @wf_xl.sheet(sheet_num.to_i)
               (sheet.first_row..sheet.last_row).each do |row_num|
                 arr = sheet.row( row_num )
@@ -36,7 +36,7 @@ module MMA   # MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpLogic
               end
               out
             rescue Exception=>e
-              puts "Exception while serializing sheet rows:#{e.message} in WellsFargoSrpLogic"
+              Rails.logger.warn "Exception while serializing sheet rows:#{e.message} in WellsFargoSrpLogic"
             end
           end
         end

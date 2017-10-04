@@ -23,7 +23,7 @@ module MMA   # MMA::Banks::WellsFargo::RateSheet::WellsFargoLogic
 
           def sheet_array( sheet_num = 0 )
             @worksheet_rows ||= begin
-                                  out = []
+              out = []
               sheet = @wf_xl.worksheets[sheet_num.to_i]
               sheet.each{ |row| out << eval( row.to_s ) }
               out
