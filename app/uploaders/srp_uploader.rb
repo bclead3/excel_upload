@@ -17,7 +17,7 @@ class SrpUploader < CarrierWave::Uploader::Base
     %w(xls xlsx)
   end
 
-  process :parse_to_srp_conv
+  #process :parse_to_srp_conv
   #process :do_first_hashup
 
   def parse_to_srp_conv
