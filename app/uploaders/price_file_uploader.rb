@@ -44,15 +44,15 @@ class PriceFileUploader < CarrierWave::Uploader::Base
     puts 'about to save model.json'
     model.save
   rescue Exception => ex
-    Rails.logger.error( "Exception within do_hashup:#{ex.message}" )
-    Rails.logger.error( ex.backtrace )
+    puts( "Exception within do_hashup:#{ex.message}" )
+    puts( ex.backtrace )
   end
 
   def adjuster_hashup
     puts 'in adjuster_hashup'
     puts "self.file.file:#{self.file.file}"
     f = File.new( self.file.file )
-    Rails.logger.info "the file is:#{f.path}"
+    puts "the file is:#{f.path}"
     adjuster_obj            = MMA::Banks::WellsFargo::RateSheet::WellsFargoConformingAdjusters.new( f )
     if model.json.nil?
       model.json = { pricing:{}, adjusters:{} }
@@ -72,7 +72,7 @@ class PriceFileUploader < CarrierWave::Uploader::Base
     puts 'about to save model.json'
     model.save
   rescue Exception => ex
-    Rails.logger.error( "Exception within adjuster_hashup:#{ex.message}" )
-    Rails.logger.error( ex.backtrace )
+    puts( "Exception within adjuster_hashup:#{ex.message}" )
+    puts( ex.backtrace )
   end
 end

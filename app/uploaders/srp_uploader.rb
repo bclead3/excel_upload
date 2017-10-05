@@ -1,6 +1,6 @@
 class SrpUploader < CarrierWave::Uploader::Base
 
-  attr_accessor :xl_obj, :srp_hash
+  #attr_accessor :xl_obj, :srp_hash
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
@@ -22,14 +22,14 @@ class SrpUploader < CarrierWave::Uploader::Base
 
   def parse_to_srp_conv
     puts 'in parse_to_srp_conv'
-  #   Rails.logger.info "self.file.file:#{self.file.file}"
-  #   f = File.new( self.file.file )
-  #   Rails.logger.info "The file is:#{f.path}"
-  #   @xl_obj = MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpConvFullGrid.new(f, 0 )
-  #   Rails.logger.info "@xl_obj is:#{@xl_obj.inspect}"
-  # rescue Exception => ex
-  #   Rails.logger.error( "Exception within parse_to_srp_conv:#{ex.message}" )
-  #   Rails.logger.error( ex.backtrace )
+    puts "self.file.file:#{self.file.file}"
+    # f = File.new( self.file.file )
+    # puts "The file is:#{f.path}"
+    # @xl_obj = MMA::Banks::WellsFargo::SrpAdjusters::WellsFargoSrpConvFullGrid.new(f, 0 )
+    # puts "@xl_obj is:#{@xl_obj.inspect}"
+  rescue Exception => ex
+    puts( "Exception within parse_to_srp_conv:#{ex.message}" )
+    puts( ex.backtrace )
   end
   #
   # def do_first_hashup
