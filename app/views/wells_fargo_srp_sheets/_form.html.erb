@@ -17,11 +17,11 @@
   </div>
   <div class="field">
     <%= f.label 'SRP File' %><br/>&nbsp;
-    <%= f.file_field :srp %><br/>
+    <%= f.file_field :thefile %><br/>
     <%# f.text_field :srp, :maxlength=>'254', :readonly => true %>
   </div>
     <div class="actions">
-      <% if @wells_fargo_srp_sheet.nil? || @wells_fargo_srp_sheet.srp.path.blank? %>
+      <% if @wells_fargo_srp_sheet.nil? || @wells_fargo_srp_sheet.thefile.path.blank? %>
           <%= f.submit 'Upload SRP File' %>
       <% else %>
           <%= f.submit 'Update SRP File' %>

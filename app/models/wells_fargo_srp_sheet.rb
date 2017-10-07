@@ -1,6 +1,6 @@
 class WellsFargoSrpSheet < ActiveRecord::Base
-  attr_accessor :srp, :name #:description
-  mount_uploader :srp, SrpUploader
+  attr_accessor :thefile, :name #:description
+  mount_uploader :thefile, WellsFargoSrpUploader
   serialize :json
 
   def filename

@@ -69,7 +69,7 @@ class WellsFargoPriceSheetsController < ApplicationController
     puts 'about to destroy the price sheet'
     @wells_fargo_price_sheet.destroy
     respond_to do |format|
-      format.html { redirect_to wells_fargo_price_sheets_url, notice: 'Wells fargo price sheet was successfully destroyed.' }
+      format.html { redirect_to wells_fargo_price_sheets_url, notice: 'Wells Fargo price sheet was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

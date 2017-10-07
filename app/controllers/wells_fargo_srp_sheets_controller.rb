@@ -50,7 +50,7 @@ class WellsFargoSrpSheetsController < ApplicationController
   # PATCH/PUT /wells_fargo_srp_sheets/1
   # PATCH/PUT /wells_fargo_srp_sheets/1.json
   def update
-    Rails.logger.info "within update method of wells_fargo_srp_sheet with params:#{wells_faro_srp_sheet_params.inspect}"
+    Rails.logger.info "within update method of wells_fargo_srp_sheet with params:#{wells_fargo_srp_sheet_params.inspect}"
     respond_to do |format|
       puts "the format is:#{format}"
       puts 'about to update'
@@ -75,7 +75,7 @@ class WellsFargoSrpSheetsController < ApplicationController
     puts 'about to destroy the worksheet'
     @wells_fargo_srp_sheet.destroy
     respond_to do |format|
-      format.html { redirect_to wells_fargo_srp_sheets_url, notice: 'Wells fargo srp sheet was successfully destroyed.' }
+      format.html { redirect_to wells_fargo_srp_sheets_url, notice: 'Wells Fargo srp sheet was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -88,6 +88,6 @@ class WellsFargoSrpSheetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wells_fargo_srp_sheet_params
-      params.require(:wells_fargo_srp_sheet).permit(:description, :srp)
+      params.require(:wells_fargo_srp_sheet).permit(:description, :thefile)
     end
 end
